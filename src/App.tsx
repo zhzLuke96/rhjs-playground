@@ -1,73 +1,58 @@
-import { builtin, rh } from "@rhjs/rh";
-import { Counter } from "./components/Counter";
-import { RandomLight } from "./components/RandomLight";
-import { globalStyle } from "./globalStyle";
-import { TsLogo } from "./ts-lettermark-white";
+import { builtin, reactivity, rh, tools } from "@rhjs/rh";
+import { createTextUrlRef } from "./components/createTextURL";
+import { MonacoEditor } from "./components/Editor/MonacoEditor";
+import { Preview } from "./components/Preview/Preview";
+import { AppGlobalStyle } from "./globalStyle";
+
+const { ref } = reactivity;
 
 export const App = () => {
+  const importMap = {};
+  const code = ref('setTimeout(() => console.log("hello world~"), 1000);');
+  const codeUrl = createTextUrlRef(code, {
+    type: "text/javascript",
+  });
+  const isDark = ref(true);
   return () => (
     <div>
-      {globalStyle}
+      <AppGlobalStyle isDark={isDark} />
       <builtin.Style
         styleFn={() => ({
           position: "relative",
-          display: "inline-flex",
+          display: "flex",
           flexFlow: "column",
-          alignItems: "center",
-          "& .logo": {
-            willChange: "filter",
-            transition: "filter 300ms",
-          },
-          "& .ts-logo:hover": {
-            filter: "drop-shadow(0 0 1em #3178c6aa)",
-          },
-          "& .rhjs-logo": {
-            zIndex: "1",
-            fontSize: "100px",
-            position: "absolute",
-            top: "-50px",
-            left: "-50px",
-            "&:hover": {
-              filter: `drop-shadow(0 0 1em #16c60c)`,
-            },
-          },
-          "& a": {
-            textDecoration: "none",
-          },
+          width: "100%",
+          height: "100%",
         })}
       ></builtin.Style>
-      <a
-        class={"logo rhjs-logo"}
-        href="https://github.com/zhzLuke96/rh.js"
-        target={"_blank"}
-      >
-        🧩
-      </a>
-      <a
-        class={"logo ts-logo"}
-        href="https://www.typescriptlang.org/"
-        target={"_blank"}
-      >
-        <TsLogo />
-      </a>
-      <h1 style="margin-top: 40px; margin-bottom: 40px;">
-        Rh.js + Vite + TypeScript(tsx)
-      </h1>
-      <Counter>
-        {" "}
-        <RandomLight style={"margin-right: 0.5rem;filter: blur(4px);"} />
-        {"count is "}
-      </Counter>
-      <p style="margin-top: 60px;color: #888;">
-        Click on the Rh.js and TypeScript logos to learn more
-      </p>
 
-      <a
-        href="https://www.github.com/zhzluke96/rhjs-vite-tsx-starter"
-        target={"_blank"}
-      >
-        this template source
-      </a>
+      <header style={"height: 30px;"}>
+        <button onClick={() => (isDark.value = !isDark.value)}>{isDark}</button>
+      </header>
+      <div style={"flex: 1;"}>
+        <builtin.Style
+          styleFn={() => ({
+            position: "relative",
+            display: "flex",
+            flexFlow: "row",
+            width: "100%",
+            height: "100%",
+          })}
+        ></builtin.Style>
+        <MonacoEditor
+          style={"flex: 1;"}
+          defaultValue={code}
+          onChange={(value) => (code.value = value)}
+          isDark={isDark}
+        ></MonacoEditor>
+        <Preview
+          style={"flex: 1;"}
+          importMap={importMap}
+          code={codeUrl}
+          devtools
+          isDark={isDark}
+        ></Preview>
+      </div>
     </div>
   );
 };

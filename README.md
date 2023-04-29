@@ -1,6 +1,6 @@
-# Rhjs TypeScript(jsx) with Vite
+# Rh.js playground
 
-This is a [Rh.js](https://github.com/zhzLuke96/rh.js) + [TypeScript](https://www.typescriptlang.org/) boilerplate built with [Vite](https://vitejs.dev).
+rh.js playground page
 
 # Getting started
 
