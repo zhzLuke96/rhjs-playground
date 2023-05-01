@@ -6,7 +6,7 @@ export const AppGlobalStyle =
     (
       <builtin.GlobalStyle
         styleFn={() => ({
-          fontFamily: "Inter, system-ui, Avenir, Helvetica, Arial, sans-serif",
+          fontFamily: `'Karla', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'`,
           lineHeight: "1.5",
           fontWeight: "400",
 

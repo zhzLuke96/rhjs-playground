@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@rhjs/rh": "^0.0.23"
+    "@rhjs/rh": "^0.0.24"
   },
   "devDependencies": {
     "tslib": "^2.5.0",

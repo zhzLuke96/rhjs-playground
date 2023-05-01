@@ -65,6 +65,14 @@ export const generateHTML = (isDark: boolean, importMap: string) => `
 
           if (event !== 'CODE_UPDATE') return;
 
+          const past_appsrc = document.getElementById('appsrc');
+          if (past_appsrc) {
+            if (past_appsrc.src === value) return;
+            else {
+              past_appsrc.remove();
+            }
+          }
+
           window.dispose?.();
           window.dispose = undefined;
 
@@ -72,7 +80,6 @@ export const generateHTML = (isDark: boolean, importMap: string) => `
 
           console.clear();
 
-          document.getElementById('appsrc')?.remove();
           const script = document.createElement('script');
           script.src = value;
           script.id = 'appsrc';

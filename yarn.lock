@@ -112,10 +112,10 @@
   resolved "https://registry.npmmirror.com/@esbuild/win32-x64/-/win32-x64-0.17.17.tgz#2b577b976e6844106715bbe0cdc57cd1528063f9"
   integrity sha512-FNZw7H3aqhF9OyRQbDDnzUApDXfC1N6fgBhkqEO2jvYCJ+DxMTfZVqg3AX0R1khg1wHTBRD5SdcibSJ+XF6bFg==
 
-"@rhjs/rh@^0.0.23":
-  version "0.0.23"
-  resolved "https://registry.npmmirror.com/@rhjs/rh/-/rh-0.0.23.tgz#a7e9c5f45abd781401804ff6bbd9d1d1b3fc7038"
-  integrity sha512-53Q4oB/53VH/qNUKm5Q1WWdD5nghvQSy6VnQtHVjCQU1aQWchbVLYu4zZSyqo3f3+Jna6ZlJ8f+9lEMjL9R1Vg==
+"@rhjs/rh@^0.0.24":
+  version "0.0.24"
+  resolved "https://registry.npmmirror.com/@rhjs/rh/-/rh-0.0.24.tgz#6292e36502e0a1361ac3950278767f3ba666caf5"
+  integrity sha512-3okC0aEljqWzDqotAIS3o0uf6sAmXy2fr6SpgCuS1BhbdH/+Az6ExgZ8z+SvzP5XzhX+O3On9WKSuZhNa6uuXQ==
   dependencies:
     "@vue/reactivity" "^3.2.37"
     eventemitter3 "^5.0.0"

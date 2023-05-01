@@ -1,18 +1,29 @@
-import { builtin, reactivity, rh, tools } from "@rhjs/rh";
+import { builtin, reactivity, rh, tools, utils } from "@rhjs/rh";
 import { createTextUrlRef } from "./components/createTextURL";
 import { MonacoEditor } from "./components/Editor/MonacoEditor";
+import { AppHeader } from "./components/Layout/AppHeader";
 import { Preview } from "./components/Preview/Preview";
 import { AppGlobalStyle } from "./globalStyle";
 
+import demo1 from "./DemoCode/demo1.js?raw";
+
 const { ref } = reactivity;
+const { untrack } = utils;
+
+// const version = "0.0.24";
+const version = "latest";
+const importMap = {
+  "@rhjs/rh": `https://unpkg.com/@rhjs/rh@${version}/dist/main.module.mjs`,
+};
 
 export const App = () => {
-  const importMap = {};
-  const code = ref('setTimeout(() => console.log("hello world~"), 1000);');
+  const code = ref(demo1);
   const codeUrl = createTextUrlRef(code, {
     type: "text/javascript",
   });
   const isDark = ref(true);
+
+  let codeCache = untrack(code);
   return () => (
     <div>
       <AppGlobalStyle isDark={isDark} />
@@ -23,11 +34,14 @@ export const App = () => {
           flexFlow: "column",
           width: "100%",
           height: "100%",
+          maxWidth: "100vw",
+          maxHeight: "100vh",
+          overflow: "hidden",
         })}
       ></builtin.Style>
 
-      <header style={"height: 30px;"}>
-        <button onClick={() => (isDark.value = !isDark.value)}>{isDark}</button>
+      <header style={"height: 30px; width: 100%;"}>
+        <AppHeader isDark={isDark} />
       </header>
       <div style={"flex: 1;"}>
         <builtin.Style
@@ -42,7 +56,8 @@ export const App = () => {
         <MonacoEditor
           style={"flex: 1;"}
           defaultValue={code}
-          onChange={(value) => (code.value = value)}
+          onChange={(value) => (codeCache = value)}
+          onSave={() => (code.value = codeCache)}
           isDark={isDark}
         ></MonacoEditor>
         <Preview

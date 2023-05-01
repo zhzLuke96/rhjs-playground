@@ -9,12 +9,14 @@ type MonacoEditorProps = {
   defaultValue: string | reactivity.Ref<string>;
   onChange: (value: string) => any;
   isDark: boolean | reactivity.Ref<boolean>;
+  onSave?: (value: string) => any;
 } & Omit<JSX.HTMLAttributes<HTMLDivElement>, "onChange">;
 
 export const MonacoEditor = ({
   defaultValue,
   onChange,
   isDark,
+  onSave,
   ...props
 }: MonacoEditorProps) => {
   const loadMonaco = () =>
@@ -47,6 +49,11 @@ export const MonacoEditor = ({
         });
         model = editor.getModel();
         model.onDidChangeContent(() => onChange(model.getValue()));
+        if (onSave) {
+          editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
+            onSave(model.getValue());
+          });
+        }
       }}
     ></div>
   );
