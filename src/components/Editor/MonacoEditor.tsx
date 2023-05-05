@@ -1,5 +1,4 @@
 import { cs, reactivity, rh, utils } from "@rhjs/rh";
-import { RefProperty } from "../../types";
 
 const { hookEffect } = cs;
 const { unref } = reactivity;
@@ -12,6 +11,17 @@ type MonacoEditorProps = {
   onSave?: (value: string) => any;
 } & Omit<JSX.HTMLAttributes<HTMLDivElement>, "onChange">;
 
+const loadMonaco = () =>
+  import(
+    "https://unpkg.com/@monaco-editor/loader@1.3.3/lib/umd/monaco-loader.min.js" as any
+  ).then(() => (window as any).monaco_loader.init());
+
+/**
+ * monaco editor (tsx)
+ *
+ * FIXME: 现在hover到变量上会报错...最好还是不要用@monaco-editor/loader直接用库
+ */
+
 export const MonacoEditor = ({
   defaultValue,
   onChange,
@@ -19,10 +29,6 @@ export const MonacoEditor = ({
   onSave,
   ...props
 }: MonacoEditorProps) => {
-  const loadMonaco = () =>
-    import(
-      "https://unpkg.com/@monaco-editor/loader@1.3.3/lib/umd/monaco-loader.min.js" as any
-    ).then(() => (window as any).monaco_loader.init());
   let editor: any, model: any, monaco: any;
 
   hookEffect(() => {
@@ -35,14 +41,23 @@ export const MonacoEditor = ({
       }
     }
   });
+
+  cs.onUnmount(() => editor?.dispose());
   return () => (
     <div
       {...props}
       ref={async (dom: any) => {
         monaco = await loadMonaco();
+        monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+          jsx: "react",
+        });
+        monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+          noSemanticValidation: false,
+          noSyntaxValidation: false,
+        });
         editor = monaco.editor.create(dom, {
           value: untrack(defaultValue as any),
-          language: "javascript",
+          language: "typescript",
           automaticLayout: true,
           wordWrap: true,
           theme: untrack(isDark as any) ? "vs-dark" : "vs",

@@ -1,20 +1,20 @@
-import { builtin, reactivity, rh } from "@rhjs/rh";
+import { builtin, reactivity, rh, utils } from "@rhjs/rh";
 
-const DarkSwitch = ({
-  isDark,
-}: {
-  isDark: boolean | reactivity.Ref<boolean>;
-}) => {
+const { untrack } = utils;
+
+const HeaderBtn = (
+  {
+    styleFn,
+    isDark,
+    ...props
+  }: {
+    styleFn?: () => any;
+    isDark: boolean | reactivity.Ref<boolean>;
+  } & JSX.HTMLAttributes<HTMLDivElement>,
+  ...children: any[]
+) => {
   return () => (
-    <div
-      title="switch dark"
-      onClick={() => {
-        if (!reactivity.isRef(isDark)) {
-          return;
-        }
-        isDark.value = !isDark.value;
-      }}
-    >
+    <div {...props}>
       <builtin.Style
         styleFn={() => ({
           display: "inline-flex",
@@ -24,15 +24,73 @@ const DarkSwitch = ({
           paddingRight: "12px",
           cursor: "pointer",
           userSelect: "none",
+          marginLeft: "4px",
           "&:hover": {
             backgroundColor: reactivity.unref(isDark)
               ? "rgba(64,64,64,1)"
               : "rgba(64,64,64,0.1)",
           },
+          "&:active": {
+            outline: "solid 1px",
+            outlineColor: !reactivity.unref(isDark)
+              ? "rgba(64,64,64,1)"
+              : "#fff",
+          },
+          ...styleFn?.(),
         })}
       />
-      <span>{() => (reactivity.unref(isDark) ? "🌘" : "🌖")}</span>
+      {children}
     </div>
+  );
+};
+
+const DarkSwitch = ({
+  isDark,
+}: {
+  isDark: boolean | reactivity.Ref<boolean>;
+}) => {
+  return () => (
+    <HeaderBtn
+      onClick={() => {
+        if (!reactivity.isRef(isDark)) {
+          return;
+        }
+        isDark.value = !untrack(isDark);
+      }}
+      isDark={isDark}
+    >
+      <span>{() => (reactivity.unref(isDark) ? "🌘" : "🌖")}</span>
+    </HeaderBtn>
+  );
+};
+
+const HeaderLink = (
+  {
+    isDark,
+    href,
+    target = "_blank",
+  }: {
+    href: string;
+    isDark: boolean | reactivity.Ref<boolean>;
+    target?: string;
+  },
+  ...children: any[]
+) => {
+  return () => (
+    <HeaderBtn
+      isDark={isDark}
+      onClick={() => {
+        window.open(href, target);
+      }}
+    >
+      <a
+        href={href}
+        target={target}
+        style="text-decoration: none; color: inherit;"
+      >
+        {children}
+      </a>
+    </HeaderBtn>
   );
 };
 
@@ -60,8 +118,16 @@ export const AppHeader = ({
       </div>
       <div></div>
       <div style="display: inline-flex; align-items: center; justify-content: right;">
-        <span>demos</span>
-        <span>github</span>
+        <HeaderLink
+          isDark={isDark}
+          href="https://zhzluke96.github.io/rhjs-demos/#demo"
+          target="_self"
+        >
+          demos
+        </HeaderLink>
+        <HeaderLink isDark={isDark} href="https://github.com/zhzLuke96/rh.js">
+          github
+        </HeaderLink>
       </div>
     </div>
   );

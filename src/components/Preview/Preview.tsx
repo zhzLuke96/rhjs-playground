@@ -50,16 +50,16 @@ export const Preview = ({
   });
 
   const message_handlers = {
-    code_update: (code: string) => {
+    code_update: tick_once((code: string) => {
       untrack(iframeRef)!.contentWindow!.postMessage(
         { event: "CODE_UPDATE", value: code },
         "*"
       );
-    },
-    dev_loaded: () => {
+    }),
+    dev_loaded: tick_once(() => {
       // FIXME: 好像是没用的...开启了反倒导致 runtime.enabled 重复注册...
       // untrack(iframeRef)?.contentWindow!.postMessage({ event: "LOADED" }, "*");
-    },
+    }),
   };
 
   const iframeSrcUrl = ref("");
