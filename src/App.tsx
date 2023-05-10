@@ -16,6 +16,8 @@ const { untrack } = utils;
 const version = "latest";
 const importMap = {
   "@rhjs/rh": `https://unpkg.com/@rhjs/rh@${version}/dist/main.module.mjs`,
+  "@rhjs/fluent-web-components":
+    "https://unpkg.com/@rhjs/fluent-web-components@latest/dist/main.module.mjs",
 };
 
 const connectCompiler = () => {
