@@ -5,10 +5,8 @@ import { AppHeader } from "./components/Layout/AppHeader";
 import { Preview } from "./components/Preview/Preview";
 import { AppGlobalStyle } from "./globalStyle";
 
-import demo1 from "./DemoCode/demo1.js?raw";
 import demo1JSX from "./DemoCode/demo1.jsx?raw";
 import { app_runtime } from "./runtime";
-import { AppRuntime } from "./runtime/AppRuntime";
 import { SourceFile } from "./runtime/types";
 
 const { ref } = reactivity;

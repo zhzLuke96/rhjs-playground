@@ -373,10 +373,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@rhjs/rh@^0.0.24":
-  version "0.0.24"
-  resolved "https://registry.npmmirror.com/@rhjs/rh/-/rh-0.0.24.tgz#6292e36502e0a1361ac3950278767f3ba666caf5"
-  integrity sha512-3okC0aEljqWzDqotAIS3o0uf6sAmXy2fr6SpgCuS1BhbdH/+Az6ExgZ8z+SvzP5XzhX+O3On9WKSuZhNa6uuXQ==
+"@rhjs/rh@^0.0.30":
+  version "0.0.30"
+  resolved "https://registry.npmmirror.com/@rhjs/rh/-/rh-0.0.30.tgz#ec2f21c822d8035dcd2c61083d574a3d4bfe15ee"
+  integrity sha512-uhlpYRqVwIoZFVtI2vxXlpsAwKGv6mUGkcJUC3P5aUnIxpdhV4TNFwOB4JpYDtUVMeITOoDbZ8n+qC0SaPGXaA==
   dependencies:
     "@vue/reactivity" "^3.2.37"
     eventemitter3 "^5.0.0"
