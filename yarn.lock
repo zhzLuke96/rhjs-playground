@@ -373,14 +373,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@rhjs/rh@^0.0.30":
-  version "0.0.30"
-  resolved "https://registry.npmmirror.com/@rhjs/rh/-/rh-0.0.30.tgz#ec2f21c822d8035dcd2c61083d574a3d4bfe15ee"
-  integrity sha512-uhlpYRqVwIoZFVtI2vxXlpsAwKGv6mUGkcJUC3P5aUnIxpdhV4TNFwOB4JpYDtUVMeITOoDbZ8n+qC0SaPGXaA==
-  dependencies:
-    "@vue/reactivity" "^3.2.37"
-    eventemitter3 "^5.0.0"
-    fast-deep-equal "^3.1.3"
+"@rhjs/rh@^0.0.33":
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/@rhjs/rh/-/rh-0.0.33.tgz#120cc2737f20f86c92a286e4f279d9e96661f8eb"
+  integrity sha512-g2k1nO0kDwAYP9UsxYjqa2+cUDNOhapOefyYnK0/cN20RcSSpUEt0emOAM0ZY3RDozO1Xrnh+hjDVDC9obgJ8g==
 
 "@types/babel__standalone@^7.1.4":
   version "7.1.4"
@@ -393,18 +389,6 @@
   version "0.7.0"
   resolved "https://registry.npmmirror.com/@types/dedent/-/dedent-0.7.0.tgz#155f339ca404e6dd90b9ce46a3f78fd69ca9b050"
   integrity sha512-EGlKlgMhnLt/cM4DbUSafFdrkeJoC9Mvnj0PUCU7tFmTjMjNRT957kXCx0wYm3JuEq4o4ZsS5vG+NlkM2DMd2A==
-
-"@vue/reactivity@^3.2.37":
-  version "3.2.47"
-  resolved "https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.2.47.tgz#1d6399074eadfc3ed35c727e2fd707d6881140b6"
-  integrity sha512-7khqQ/75oyyg+N/e+iwV6lpy1f5wq759NdlS1fpAhFXa8VeAIKGgk2E/C4VF59lx5b+Ezs5fpp/5WsRYXQiKxQ==
-  dependencies:
-    "@vue/shared" "3.2.47"
-
-"@vue/shared@3.2.47":
-  version "3.2.47"
-  resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.2.47.tgz#e597ef75086c6e896ff5478a6bfc0a7aa4bbd14c"
-  integrity sha512-BHGyyGN3Q97EZx0taMQ+OLNuZcW3d37ZEVmEAyeoA9ERdGvm9Irc/0Fua8SNyOtV1w6BS4q25wbMzJujO9HIfQ==
 
 ansi-styles@^3.2.1:
   version "3.2.1"
@@ -508,16 +492,6 @@ escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.npmmirror.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==
-
-eventemitter3@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.0.tgz#084eb7f5b5388df1451e63f4c2aafd71b217ccb3"
-  integrity sha512-riuVbElZZNXLeLEoprfNYoDSwTBRR44X3mnhdI1YcnENpWTCsTTVZ2zFuqQcpoyqPQIUXdiPEU0ECAq0KQRaHg==
-
-fast-deep-equal@^3.1.3:
-  version "3.1.3"
-  resolved "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
-  integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
 
 fsevents@~2.3.2:
   version "2.3.2"

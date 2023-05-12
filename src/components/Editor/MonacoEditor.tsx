@@ -13,13 +13,25 @@ type MonacoEditorProps = {
 
 const loadMonaco = () =>
   import(
-    "https://unpkg.com/@monaco-editor/loader@1.3.3/lib/umd/monaco-loader.min.js" as any
-  ).then(() => (window as any).monaco_loader.init());
+    "https://unpkg.com/@monaco-editor/loader@1.3.3/lib/umd/monaco-loader.js" as any
+  )
+    .then(() => (window as any).monaco_loader)
+    .then((module) => {
+      // *when debugger open this config:
+      //
+      // module.config({
+      //   paths: {
+      //     vs: "https://cdn.jsdelivr.net/npm/monaco-editor@latest/dev/vs",
+      //   },
+      // });
+      const monaco = module.init();
+      return monaco;
+    });
 
 /**
  * monaco editor (tsx)
  *
- * FIXME: 现在hover到变量上会报错...最好还是不要用@monaco-editor/loader直接用库
+ * TODO: support type check and autocompletion
  */
 
 export const MonacoEditor = ({
@@ -42,28 +54,39 @@ export const MonacoEditor = ({
     }
   });
 
-  cs.onUnmount(() => editor?.dispose());
+  cs.onUnmount(() => {
+    editor?.dispose();
+  });
   return () => (
     <div
       {...props}
       ref={async (dom: any) => {
         monaco = await loadMonaco();
+
+        model = monaco.editor.createModel(
+          untrack(defaultValue),
+          "typescript",
+          monaco.Uri.file("main.ts")
+        );
+        model.onDidChangeContent(() => onChange(model.getValue()));
+
         monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
           jsx: "react",
         });
         monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-          noSemanticValidation: false,
-          noSyntaxValidation: false,
+          noSemanticValidation: true,
+          noSyntaxValidation: true,
         });
+
         editor = monaco.editor.create(dom, {
-          value: untrack(defaultValue as any),
-          language: "typescript",
+          // value: untrack(defaultValue as any),
+          // language: "typescript",
           automaticLayout: true,
           wordWrap: true,
           theme: untrack(isDark as any) ? "vs-dark" : "vs",
         });
-        model = editor.getModel();
-        model.onDidChangeContent(() => onChange(model.getValue()));
+        editor.setModel(model);
+
         if (onSave) {
           editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
             onSave(model.getValue());

@@ -39,6 +39,8 @@ const connectCompiler = () => {
   };
 };
 
+const disposeCode = `import("@rhjs/rh").then(({cs}) => window.dispose = () => cs.global_source.emit("unmount"));`;
+
 export const App = () => {
   const code = ref("");
   const codeUrl = createTextUrlRef(code, {
@@ -57,7 +59,7 @@ export const App = () => {
       compiled: string;
     };
     console.log(result);
-    code.value = result.compiled;
+    code.value = `${result.compiled}\n${disposeCode}`;
   };
   cs.onMount(() => compileCodeCache());
   return () => (

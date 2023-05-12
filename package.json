@@ -6,7 +6,7 @@
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.21.5",
     "@babel/standalone": "^7.21.8",
-    "@rhjs/rh": "^0.0.30",
+    "@rhjs/rh": "^0.0.33",
     "dedent": "^0.7.0"
   },
   "devDependencies": {
