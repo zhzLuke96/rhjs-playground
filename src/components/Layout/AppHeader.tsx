@@ -104,7 +104,13 @@ export const AppHeader = ({ isDark }: { isDark: boolean | Ref<boolean> }) => {
       />
 
       <div style="display: inline-flex; align-items: center;">
-        <span style="user-select: none;">🧩 rh.js</span>
+        <span style="user-select: none;">
+          🧩 <b>R</b>
+          <small>eactive</small>
+          <b>H</b>
+          <small>ydrate</small>
+          <b>JS</b> PLAYGROUND
+        </span>
         <DarkSwitch isDark={isDark} />
         <DemoSelector />
       </div>

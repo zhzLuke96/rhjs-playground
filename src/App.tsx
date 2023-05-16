@@ -60,7 +60,8 @@ export const App = () => {
     }/dist/main.module.mjs`,
     "@rhjs/fluent-web-components":
       "https://unpkg.com/@rhjs/fluent-web-components@latest/dist/main.module.mjs",
-  }));
+    // type check error
+  })) as any;
 
   const code = ref("");
   const codeUrl = createTextUrlRef(code, {
