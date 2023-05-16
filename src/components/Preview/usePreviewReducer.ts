@@ -63,10 +63,12 @@ const useIframeMessageBus = (
       return;
     }
     // console.log(
-    //   event,
+    //   // event,
     //   event.data,
     //   event.source === devtoolsIframe.contentWindow ? "DEV" : "HTML"
     // );
+
+    // 在这个事件之前注入代码可能导致console.log绑定不全
     if (event.data?.includes?.("Debugger.enable")) {
       // console.log("Debugger.enable");
       dispatch({ type: "Debugger.enable" });
@@ -83,6 +85,13 @@ const useIframeMessageBus = (
   };
   window.addEventListener("message", iframeMessageBus);
   onUnmount(() => window.removeEventListener("message", iframeMessageBus));
+
+  // setupWatch(state, (st) => {
+  //   const { iframeReady, devtoolsIframeReady, codeInjected } = st;
+  //   if (iframeReady && devtoolsIframeReady && !codeInjected) {
+  //     sender.sendToIframe({ event: "LOADED" });
+  //   }
+  // });
 
   return sender;
 };
@@ -121,6 +130,7 @@ const useIframeSrc = (
   };
 };
 
+// FIXME: css cant work with iframe
 export const usePreviewState = (props: PreviewProps) => {
   const { isDark, code } = props;
   const iframeRef = shallowRef<HTMLIFrameElement | null>(null);
@@ -137,6 +147,13 @@ export const usePreviewState = (props: PreviewProps) => {
       iframe.src = src;
     }
   };
+  setupWatch(
+    () => unref(isDark),
+    (dark) => {
+      const iframe = unref(iframeRef);
+      iframe && setupDark(iframe);
+    }
+  );
 
   const [previewState, dispatch] = useReducer<PreviewState, PreviewAction>(
     (state, action) => {
