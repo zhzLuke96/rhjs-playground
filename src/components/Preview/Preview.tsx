@@ -1,11 +1,17 @@
-import { rh, reactivity, utils, tools, cs, builtin } from "@rhjs/rh";
+import {
+  rh,
+  ref,
+  unref,
+  computed,
+  untrack,
+  depend,
+  setupEffect,
+  builtin,
+  onUnmount,
+} from "@rhjs/rh";
 import { RefProperty } from "../../types";
 import { generateHTML } from "./generateHTML";
 import { createDevtoolsSrc } from "./useDevtoolsSrc";
-
-const { ref, unref } = reactivity;
-const { computed, untrack, depend } = utils;
-const { hookEffect } = cs;
 
 function tick_once<Args extends any[]>(fn: (...args: Args) => any) {
   let caller = fn as any;
@@ -63,119 +69,107 @@ export const Preview = ({
   };
 
   const iframeSrcUrl = ref("");
-  hookEffect(
-    () => {
-      const html = generateHTML(
-        untrack(isDark as any),
-        JSON.stringify({ imports: unref(importMap) })
-      );
-      const url = URL.createObjectURL(
-        new Blob([html], {
-          type: "text/html",
-        })
-      );
-      if (untrack(iframeSrcUrl)) {
-        URL.revokeObjectURL(untrack(iframeSrcUrl));
-      }
-      iframeSrcUrl.value = url;
-      // reset iframe ready state
-      iframeReady.value = false;
-    },
-    { lazy: false }
-  );
-  cs.onUnmount(() => URL.revokeObjectURL(untrack(iframeSrcUrl)));
+  setupEffect(() => {
+    const html = generateHTML(
+      untrack(isDark as any),
+      JSON.stringify({ imports: unref(importMap) })
+    );
+    const url = URL.createObjectURL(
+      new Blob([html], {
+        type: "text/html",
+      })
+    );
+    if (untrack(iframeSrcUrl)) {
+      URL.revokeObjectURL(untrack(iframeSrcUrl));
+    }
+    iframeSrcUrl.value = url;
+    // reset iframe ready state
+    iframeReady.value = false;
+  });
+  onUnmount(() => URL.revokeObjectURL(untrack(iframeSrcUrl)));
 
   // hook on dark theme change
-  hookEffect(
-    () => {
-      const [dark, is_iframeReady, iframe] = depend(
-        isDark,
-        iframeReady,
-        iframeRef
-      );
-      const { dev_loaded, code_injected, dark_injected } = unref(
-        initialize_message_state
-      );
-      if (!is_iframeReady || !iframe || !dark_injected) return;
-      iframe.contentDocument?.documentElement.classList.toggle("dark", dark);
-    },
-    { lazy: false }
-  );
+  setupEffect(() => {
+    const [dark, is_iframeReady, iframe] = depend(
+      isDark,
+      iframeReady,
+      iframeRef
+    );
+    const { dev_loaded, code_injected, dark_injected } = unref(
+      initialize_message_state
+    );
+    if (!is_iframeReady || !iframe || !dark_injected) return;
+    iframe.contentDocument?.documentElement.classList.toggle("dark", dark);
+  });
 
   // code update event
-  hookEffect(
-    () => {
-      const [code_text, is_iframeReady, iframe] = depend(
-        code,
-        iframeReady,
-        iframeRef
-      );
-      const { dev_loaded, code_injected, dark_injected } = unref(
-        initialize_message_state
-      );
-      if (!is_iframeReady || !iframe || !code_injected || !dev_loaded) return;
+  setupEffect(() => {
+    const [code_text, is_iframeReady, iframe] = depend(
+      code,
+      iframeReady,
+      iframeRef
+    );
+    const { dev_loaded, code_injected, dark_injected } = unref(
+      initialize_message_state
+    );
+    if (!is_iframeReady || !iframe || !code_injected || !dev_loaded) return;
 
-      message_handlers.code_update(code_text);
-    },
-    { lazy: false }
-  );
+    message_handlers.code_update(code_text);
+  });
 
   // sync initial state
-  hookEffect(
-    () => {
-      const [
-        code_text,
-        is_dark,
-        is_iframeReady,
-        is_devtoolsReady,
-        iframe,
-        devtoolsIframe,
-      ] = depend(
-        code,
-        isDark,
-        iframeReady,
-        devtoolsIframeReady,
-        iframeRef,
-        devtoolsIframeRef
-      );
-      const { dev_loaded, code_injected, dark_injected } = untrack(
-        initialize_message_state
-      );
-      if (!iframe) {
-        return;
-      }
-      if (is_iframeReady) {
-        if (!dark_injected) {
-          iframe.contentDocument!.documentElement.classList.toggle(
-            "dark",
-            is_dark
-          );
-          initialize_message_state.value = {
-            ...untrack(initialize_message_state),
-            dark_injected: true,
-          };
-        }
-        if (!code_injected) {
-          message_handlers.code_update(code_text);
-          initialize_message_state.value = {
-            ...untrack(initialize_message_state),
-            code_injected: true,
-          };
-        }
-      }
-      if (!devtoolsIframe) {
-        return;
-      }
-      if (!dev_loaded && is_devtoolsReady) {
-        message_handlers.dev_loaded();
+  setupEffect(() => {
+    const [
+      code_text,
+      is_dark,
+      is_iframeReady,
+      is_devtoolsReady,
+      iframe,
+      devtoolsIframe,
+    ] = depend(
+      code,
+      isDark,
+      iframeReady,
+      devtoolsIframeReady,
+      iframeRef,
+      devtoolsIframeRef
+    );
+    const { dev_loaded, code_injected, dark_injected } = untrack(
+      initialize_message_state
+    );
+    if (!iframe) {
+      return;
+    }
+    if (is_iframeReady) {
+      if (!dark_injected) {
+        iframe.contentDocument!.documentElement.classList.toggle(
+          "dark",
+          is_dark
+        );
         initialize_message_state.value = {
           ...untrack(initialize_message_state),
-          dev_loaded: true,
+          dark_injected: true,
         };
       }
-    },
-    { lazy: false }
-  );
+      if (!code_injected) {
+        message_handlers.code_update(code_text);
+        initialize_message_state.value = {
+          ...untrack(initialize_message_state),
+          code_injected: true,
+        };
+      }
+    }
+    if (!devtoolsIframe) {
+      return;
+    }
+    if (!dev_loaded && is_devtoolsReady) {
+      message_handlers.dev_loaded();
+      initialize_message_state.value = {
+        ...untrack(initialize_message_state),
+        dev_loaded: true,
+      };
+    }
+  });
 
   const devtools_src = createDevtoolsSrc();
 
@@ -198,7 +192,7 @@ export const Preview = ({
     }
   };
   window.addEventListener("message", iframeMessageBus);
-  cs.onUnmount(() => window.removeEventListener("message", iframeMessageBus));
+  onUnmount(() => window.removeEventListener("message", iframeMessageBus));
 
   const devtools_style = computed(
     () =>

@@ -1,4 +1,4 @@
-import { rh } from "@rhjs/rh";
+import { mount } from "@rhjs/rh";
 import { App } from "./App";
 
-rh.mount("#app", App);
+mount("#app", App);

@@ -1,6 +1,4 @@
-import { builtin, reactivity, rh, utils } from "@rhjs/rh";
-
-const { untrack } = utils;
+import { builtin, Ref, rh, untrack, unref, isRef, onMount } from "@rhjs/rh";
 
 const HeaderBtn = (
   {
@@ -9,9 +7,10 @@ const HeaderBtn = (
     ...props
   }: {
     styleFn?: () => any;
-    isDark: boolean | reactivity.Ref<boolean>;
+    isDark: boolean | Ref<boolean>;
   } & JSX.HTMLAttributes<HTMLDivElement>,
-  ...children: any[]
+  state: any,
+  children: any[]
 ) => {
   return () => (
     <div {...props}>
@@ -26,15 +25,13 @@ const HeaderBtn = (
           userSelect: "none",
           marginLeft: "4px",
           "&:hover": {
-            backgroundColor: reactivity.unref(isDark)
+            backgroundColor: unref(isDark)
               ? "rgba(64,64,64,1)"
               : "rgba(64,64,64,0.1)",
           },
           "&:active": {
             outline: "solid 1px",
-            outlineColor: !reactivity.unref(isDark)
-              ? "rgba(64,64,64,1)"
-              : "#fff",
+            outlineColor: !unref(isDark) ? "rgba(64,64,64,1)" : "#fff",
           },
           ...styleFn?.(),
         })}
@@ -44,22 +41,18 @@ const HeaderBtn = (
   );
 };
 
-const DarkSwitch = ({
-  isDark,
-}: {
-  isDark: boolean | reactivity.Ref<boolean>;
-}) => {
+const DarkSwitch = ({ isDark }: { isDark: boolean | Ref<boolean> }) => {
   return () => (
     <HeaderBtn
       onClick={() => {
-        if (!reactivity.isRef(isDark)) {
+        if (!isRef(isDark)) {
           return;
         }
         isDark.value = !untrack(isDark);
       }}
       isDark={isDark}
     >
-      <span>{() => (reactivity.unref(isDark) ? "🌘" : "🌖")}</span>
+      <span>{() => (unref(isDark) ? "🌘" : "🌖")}</span>
     </HeaderBtn>
   );
 };
@@ -71,10 +64,11 @@ const HeaderLink = (
     target = "_blank",
   }: {
     href: string;
-    isDark: boolean | reactivity.Ref<boolean>;
+    isDark: boolean | Ref<boolean>;
     target?: string;
   },
-  ...children: any[]
+  state: any,
+  children: any[]
 ) => {
   return () => (
     <HeaderBtn
@@ -94,11 +88,7 @@ const HeaderLink = (
   );
 };
 
-export const AppHeader = ({
-  isDark,
-}: {
-  isDark: boolean | reactivity.Ref<boolean>;
-}) => {
+export const AppHeader = ({ isDark }: { isDark: boolean | Ref<boolean> }) => {
   return () => (
     <div>
       <builtin.Style

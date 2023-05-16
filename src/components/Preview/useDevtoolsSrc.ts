@@ -1,4 +1,4 @@
-import { cs } from "@rhjs/rh";
+import { onUnmount } from "@rhjs/rh";
 
 export const createDevtoolsSrc = () => {
   const html = `
@@ -25,6 +25,6 @@ export const createDevtoolsSrc = () => {
   const devtoolsRawUrl = URL.createObjectURL(
     new Blob([html], { type: "text/html" })
   );
-  cs.onUnmount(() => URL.revokeObjectURL(devtoolsRawUrl));
+  onUnmount(() => URL.revokeObjectURL(devtoolsRawUrl));
   return `${devtoolsRawUrl}#?embedded=${encodeURIComponent(location.origin)}`;
 };

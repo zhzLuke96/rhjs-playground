@@ -1,4 +1,12 @@
-import { builtin, cs, reactivity, rh, tools, utils } from "@rhjs/rh";
+import {
+  builtin,
+  rh,
+  ref,
+  untrack,
+  onUnmount,
+  onMount,
+  ElementSource,
+} from "@rhjs/rh";
 import { createTextUrlRef } from "./components/createTextURL";
 import { MonacoEditor } from "./components/Editor/MonacoEditor";
 import { AppHeader } from "./components/Layout/AppHeader";
@@ -9,22 +17,21 @@ import demo1JSX from "./DemoCode/demo1.jsx?raw";
 import { app_runtime } from "./runtime";
 import { SourceFile } from "./runtime/types";
 
-const { ref } = reactivity;
-const { untrack } = utils;
-
-// const version = "0.0.24";
-const version = "latest";
+const version = "0.0.34";
+// const version = "latest";
 const importMap = {
   "@rhjs/rh": `https://unpkg.com/@rhjs/rh@${version}/dist/main.module.mjs`,
   "@rhjs/fluent-web-components":
     "https://unpkg.com/@rhjs/fluent-web-components@latest/dist/main.module.mjs",
 };
 
+ElementSource.global_source.on("throw", console.error);
+
 const connectCompiler = () => {
   let current_processor: ReturnType<
     (typeof app_runtime)["compileFile"]
   > | null = null;
-  cs.onUnmount(() => current_processor?.dispose());
+  onUnmount(() => current_processor?.dispose());
   return {
     compileFile(file: SourceFile) {
       current_processor?.dispose();
@@ -61,7 +68,7 @@ export const App = () => {
     console.log(result);
     code.value = `${result.compiled}\n${disposeCode}`;
   };
-  cs.onMount(() => compileCodeCache());
+  onMount(() => compileCodeCache());
   return () => (
     <div>
       <AppGlobalStyle isDark={isDark} />

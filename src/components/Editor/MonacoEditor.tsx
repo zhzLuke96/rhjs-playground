@@ -1,13 +1,9 @@
-import { cs, reactivity, rh, utils } from "@rhjs/rh";
-
-const { hookEffect } = cs;
-const { unref } = reactivity;
-const { untrack } = utils;
+import { onUnmount, Ref, rh, setupEffect, unref, untrack } from "@rhjs/rh";
 
 type MonacoEditorProps = {
-  defaultValue: string | reactivity.Ref<string>;
+  defaultValue: string | Ref<string>;
   onChange: (value: string) => any;
-  isDark: boolean | reactivity.Ref<boolean>;
+  isDark: boolean | Ref<boolean>;
   onSave?: (value: string) => any;
 } & Omit<JSX.HTMLAttributes<HTMLDivElement>, "onChange">;
 
@@ -43,7 +39,7 @@ export const MonacoEditor = ({
 }: MonacoEditorProps) => {
   let editor: any, model: any, monaco: any;
 
-  hookEffect(() => {
+  setupEffect(() => {
     const is_dark = unref(isDark);
     if (monaco?.editor) {
       if (is_dark) {
@@ -54,7 +50,7 @@ export const MonacoEditor = ({
     }
   });
 
-  cs.onUnmount(() => {
+  onUnmount(() => {
     editor?.dispose();
   });
   return () => (

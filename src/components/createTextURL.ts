@@ -1,26 +1,24 @@
-import { reactivity, cs, tools, utils } from "@rhjs/rh";
-const { hookEffect } = cs;
-const {} = tools;
-const { ref, unref } = reactivity;
-const { untrack } = utils;
+import { setupEffect, Ref, ref, untrack, unref, onUnmount } from "@rhjs/rh";
 
+/**
+ * create text/plain content Ref<string>
+ *
+ * FIXME: If the url is used by an iframe, it may not revoke in time
+ */
 export const createTextUrlRef = (
-  text: string | reactivity.Ref<string>,
+  text: string | Ref<string>,
   options?: BlobPropertyBag | undefined
 ) => {
   const urlRef = ref("");
-  hookEffect(
-    () => {
-      const prev_url = untrack(urlRef);
-      if (prev_url) {
-        URL.revokeObjectURL(prev_url);
-      }
-      urlRef.value = URL.createObjectURL(
-        new Blob([unref(text)], { type: "text/plain", ...options })
-      );
-    },
-    { lazy: false }
-  );
-  cs.onUnmount(() => URL.revokeObjectURL(urlRef.value));
+  setupEffect(() => {
+    const prev_url = untrack(urlRef);
+    if (prev_url) {
+      URL.revokeObjectURL(prev_url);
+    }
+    urlRef.value = URL.createObjectURL(
+      new Blob([unref(text)], { type: "text/plain", ...options })
+    );
+  });
+  onUnmount(() => URL.revokeObjectURL(urlRef.value));
   return urlRef;
 };
