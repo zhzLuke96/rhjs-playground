@@ -83,7 +83,7 @@ export const generateHTML = (
 
         document.getElementById('app').innerHTML = "";
 
-        // console.clear();
+        console.clear();
 
         const script = document.createElement('script');
         script.src = value;

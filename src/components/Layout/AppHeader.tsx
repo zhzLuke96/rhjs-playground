@@ -1,4 +1,5 @@
 import { builtin, Ref, rh, untrack, unref, isRef, onMount } from "@rhjs/rh";
+import { DemoSelector } from "./DemoSelector";
 
 const HeaderBtn = (
   {
@@ -105,6 +106,7 @@ export const AppHeader = ({ isDark }: { isDark: boolean | Ref<boolean> }) => {
       <div style="display: inline-flex; align-items: center;">
         <span style="user-select: none;">🧩 rh.js</span>
         <DarkSwitch isDark={isDark} />
+        <DemoSelector />
       </div>
       <div></div>
       <div style="display: inline-flex; align-items: center; justify-content: right;">

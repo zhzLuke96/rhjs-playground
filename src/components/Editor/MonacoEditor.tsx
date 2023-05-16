@@ -1,7 +1,16 @@
-import { onUnmount, Ref, rh, setupEffect, unref, untrack } from "@rhjs/rh";
+import {
+  isRef,
+  onUnmount,
+  Ref,
+  rh,
+  setupEffect,
+  setupWatch,
+  unref,
+  untrack,
+} from "@rhjs/rh";
 
 type MonacoEditorProps = {
-  defaultValue: string | Ref<string>;
+  value: string | Ref<string>;
   onChange: (value: string) => any;
   isDark: boolean | Ref<boolean>;
   onSave?: (value: string) => any;
@@ -31,7 +40,7 @@ const loadMonaco = () =>
  */
 
 export const MonacoEditor = ({
-  defaultValue,
+  value,
   onChange,
   isDark,
   onSave,
@@ -53,6 +62,13 @@ export const MonacoEditor = ({
   onUnmount(() => {
     editor?.dispose();
   });
+
+  if (isRef(value)) {
+    setupWatch(value, (code) => {
+      model?.setValue(code);
+    });
+  }
+
   return () => (
     <div
       {...props}
@@ -60,7 +76,7 @@ export const MonacoEditor = ({
         monaco = await loadMonaco();
 
         model = monaco.editor.createModel(
-          untrack(defaultValue),
+          untrack(value),
           "typescript",
           monaco.Uri.file("main.ts")
         );

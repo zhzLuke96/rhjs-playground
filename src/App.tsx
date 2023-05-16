@@ -6,6 +6,8 @@ import {
   onUnmount,
   onMount,
   ElementSource,
+  setupWatch,
+  computed,
 } from "@rhjs/rh";
 import { createTextUrlRef } from "./components/createTextURL";
 import { MonacoEditor } from "./components/Editor/MonacoEditor";
@@ -16,6 +18,7 @@ import { AppGlobalStyle } from "./globalStyle";
 import demo1JSX from "./DemoCode/demo1.jsx?raw";
 import { app_runtime } from "./runtime";
 import { SourceFile } from "./runtime/types";
+import { connectDemoCode } from "./DemoCode";
 
 const version = "0.0.34";
 // const version = "latest";
@@ -46,29 +49,55 @@ const connectCompiler = () => {
   };
 };
 
-const disposeCode = `import("@rhjs/rh").then(({cs}) => window.dispose = () => cs.global_source.emit("unmount"));`;
+const disposeCode = `import("@rhjs/rh").then(({cs, ElementSource}) => window.dispose = () => (cs || ElementSource).global_source.emit("unmount"));`;
 
 export const App = () => {
+  const isDark = ref(true);
+  const { currentDemo } = connectDemoCode();
+  const importMap = computed(() => ({
+    "@rhjs/rh": `https://unpkg.com/@rhjs/rh@${
+      currentDemo.value?.version || "latest"
+    }/dist/main.module.mjs`,
+    "@rhjs/fluent-web-components":
+      "https://unpkg.com/@rhjs/fluent-web-components@latest/dist/main.module.mjs",
+  }));
+
   const code = ref("");
   const codeUrl = createTextUrlRef(code, {
     type: "text/javascript",
   });
-  const isDark = ref(true);
 
-  const editorCode = ref(demo1JSX);
+  const editorCode = ref(currentDemo.value?.code || "");
 
   const compiler = connectCompiler();
   const compileCodeCache = async () => {
+    const codeText = untrack(editorCode);
+    if (!codeText) {
+      return;
+    }
     const result = (await compiler.compileFile({
       filename: "main.tsx",
-      source: untrack(editorCode),
+      source: codeText,
     })) as {
       compiled: string;
     };
     console.log(result);
     code.value = `${result.compiled}\n${disposeCode}`;
   };
-  onMount(() => compileCodeCache());
+  onMount(compileCodeCache);
+
+  setupWatch(currentDemo, (demo) => {
+    if (!demo) {
+      return;
+    }
+    if (editorCode.value === demo.code) {
+      return;
+    }
+    console.log("change");
+    editorCode.value = demo.code;
+    compileCodeCache();
+  });
+
   return () => (
     <div>
       <AppGlobalStyle isDark={isDark} />
@@ -100,7 +129,7 @@ export const App = () => {
         ></builtin.Style>
         <MonacoEditor
           style={"flex: 1;"}
-          defaultValue={editorCode}
+          value={editorCode}
           onChange={(value) => (editorCode.value = value)}
           onSave={compileCodeCache}
           isDark={isDark}
