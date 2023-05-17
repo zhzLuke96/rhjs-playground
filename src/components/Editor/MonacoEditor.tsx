@@ -65,6 +65,9 @@ export const MonacoEditor = ({
 
   if (isRef(value)) {
     setupWatch(value, (code) => {
+      if (model?.getValue() === code) {
+        return;
+      }
       model?.setValue(code);
     });
   }
