@@ -244,5 +244,7 @@ export const usePreviewState = (props: PreviewProps) => {
     devtoolsIframeRef,
     previewState,
     dispatch,
+    sendToDevtools,
+    sendToIframe,
   };
 };
