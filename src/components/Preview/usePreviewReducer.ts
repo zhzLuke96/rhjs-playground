@@ -50,6 +50,7 @@ const useIframeMessageBus = (
       return;
     }
     if (!codeURL) {
+      setTimeout(injectCode, 3);
       return;
     }
     requestAnimationFrame(() => {
@@ -157,7 +158,7 @@ export const usePreviewState = (props: PreviewProps) => {
 
   const [previewState, dispatch] = useReducer<PreviewState, PreviewAction>(
     (state, action) => {
-      console.log(state, action);
+      // console.log(state, action);
       switch (action.type) {
         case "IFRAME_READY":
           setupDark(action.iframe);
