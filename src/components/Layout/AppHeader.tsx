@@ -104,7 +104,7 @@ export const AppHeader = ({ isDark }: { isDark: boolean | Ref<boolean> }) => {
       />
 
       <div style="display: inline-flex; align-items: center;">
-        <span style="user-select: none;">
+        <span style="user-select: none;word-break: keep-all;white-space: nowrap;">
           🧩 <b>R</b>
           <small>eactive</small>
           <b>H</b>
