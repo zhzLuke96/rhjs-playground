@@ -1,10 +1,20 @@
-import { rh, unref, computed, builtin } from "@rhjs/rh";
+import { rh, unref, computed, builtin, ref, unrefAll } from "@rhjs/rh";
+import { Resizer } from "./Resizer";
 import { PreviewProps } from "./types";
 import { createDevtoolsSrc } from "./useDevtoolsSrc";
 import { usePreviewState } from "./usePreviewReducer";
 
 export const Preview = (previewProps: PreviewProps) => {
-  const { importMap, code, devtools, isDark, ...props } = previewProps;
+  const {
+    importMap,
+    code,
+    devtools: devtoolsEnable,
+    isDark,
+    ...props
+  } = previewProps;
+
+  const containerRef = ref<HTMLElement | null>(null);
+
   const { iframeSrc, iframeRef, devtoolsIframeRef, previewState, dispatch } =
     usePreviewState(previewProps);
 
@@ -13,16 +23,38 @@ export const Preview = (previewProps: PreviewProps) => {
   const devtools_style = computed(
     () =>
       `width: 100%; height: 100%; ${
-        unref(devtools) ? "display: block;" : "display: none;"
+        unref(devtoolsEnable) ? "display: block;" : "display: none;"
       }`
   );
 
+  const iframeHeight = ref<number>(0.625);
+
+  const resizerRef = ref<HTMLElement | null>(null);
+  const changeIframeHeight = (clientX: number, clientY: number) => {
+    const [outerContainer, resizer] = unrefAll(containerRef, resizerRef);
+    if (!outerContainer || !resizer) {
+      return;
+    }
+
+    let position: number;
+    let size: number;
+
+    const rect = outerContainer.getBoundingClientRect();
+
+    position = clientY - rect.top - resizer.offsetHeight / 2;
+    size = outerContainer.offsetHeight - resizer.offsetHeight;
+    const percentage = position / size;
+
+    iframeHeight.value = percentage;
+  };
+
   return () => (
-    <div {...props}>
+    <div {...props} ref={containerRef}>
       <builtin.Style
         styleFn={() => {
-          const rows = unref(devtools)
-            ? `minmax(0, 1fr) 12px minmax(0, 1fr)`
+          const ihPer = unref(iframeHeight);
+          const rows = unref(devtoolsEnable)
+            ? `minmax(0, ${ihPer}fr) 12px minmax(0, ${1 - ihPer}fr)`
             : "minmax(0, 1fr)";
           return {
             display: "grid",
@@ -40,7 +72,9 @@ export const Preview = (previewProps: PreviewProps) => {
         sandbox="allow-popups-to-escape-sandbox allow-scripts allow-popups allow-forms allow-pointer-lock allow-top-navigation allow-modals allow-same-origin"
       ></iframe>
 
-      <div>TODO: resizer</div>
+      <div>
+        <Resizer ref={resizerRef} isHorizontal onResize={changeIframeHeight} />
+      </div>
 
       <iframe
         ref={devtoolsIframeRef}

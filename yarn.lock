@@ -373,10 +373,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@rhjs/rh@^0.1.1-dev.9":
-  version "0.1.1-dev.9"
-  resolved "https://registry.yarnpkg.com/@rhjs/rh/-/rh-0.1.1-dev.9.tgz#9337223124672fbb5f3c559c622f7eb23ac758e0"
-  integrity sha512-0TcZHuL0w8V/T+b9ortcBTaPvNcAj0co06cGyaTy1Vl6GHkpPFvXEQ++24Z7YIeCjhNXqJ6FMLlL+kfjJqF0gA==
+"@rhjs/rh@^0.1.1-dev.11":
+  version "0.1.1-dev.11"
+  resolved "https://registry.yarnpkg.com/@rhjs/rh/-/rh-0.1.1-dev.11.tgz#dfc8647526d9e98f5e44f1c219dbca1568594af7"
+  integrity sha512-X+Lun8pIY6XtjdUWQaDMejlthScGrgq714EDVm9IwdTNkqo8jhTHYUjIf66zgoXRKWCLaZVuK4IN/LPmL6JUgg==
 
 "@types/babel__standalone@^7.1.4":
   version "7.1.4"
@@ -389,6 +389,18 @@
   version "0.7.0"
   resolved "https://registry.npmmirror.com/@types/dedent/-/dedent-0.7.0.tgz#155f339ca404e6dd90b9ce46a3f78fd69ca9b050"
   integrity sha512-EGlKlgMhnLt/cM4DbUSafFdrkeJoC9Mvnj0PUCU7tFmTjMjNRT957kXCx0wYm3JuEq4o4ZsS5vG+NlkM2DMd2A==
+
+"@types/lodash-es@^4.17.7":
+  version "4.17.7"
+  resolved "https://registry.npmmirror.com/@types/lodash-es/-/lodash-es-4.17.7.tgz#22edcae9f44aff08546e71db8925f05b33c7cc40"
+  integrity sha512-z0ptr6UI10VlU6l5MYhGwS4mC8DZyYer2mCoyysZtSF7p26zOX8UpbrV0YpNYLGS8K4PUFIyEr62IMFFjveSiQ==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.194"
+  resolved "https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.194.tgz#b71eb6f7a0ff11bff59fc987134a093029258a76"
+  integrity sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==
 
 ansi-styles@^3.2.1:
   version "3.2.1"
@@ -546,6 +558,11 @@ json5@^2.2.2:
   version "2.2.3"
   resolved "https://registry.npmmirror.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
+
+lodash-es@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.npmmirror.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
 lru-cache@^5.1.1:
   version "5.1.1"
