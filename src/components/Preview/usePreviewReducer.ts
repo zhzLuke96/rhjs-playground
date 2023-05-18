@@ -213,16 +213,25 @@ export const usePreviewState = (props: PreviewProps) => {
     }
   );
 
-  setupWatch(
-    () => unref(code),
-    (newCode) => dispatch({ type: "CODE_UPDATE", codeURL: newCode })
-  );
-
   const { sendToDevtools, sendToIframe } = useIframeMessageBus(
     iframeRef,
     devtoolsIframeRef,
     previewState,
     dispatch
+  );
+
+  setupWatch(
+    () => unref(code),
+    (codeURL) => {
+      dispatch({ type: "CODE_UPDATE", codeURL });
+
+      if (previewState.value.iframeReady) {
+        requestAnimationFrame(() => {
+          sendToIframe({ event: "CODE_UPDATE", value: codeURL });
+          dispatch({ type: "CODE_INJECTED" });
+        });
+      }
+    }
   );
 
   const { iframeSrc } = useIframeSrc(props, dispatch);

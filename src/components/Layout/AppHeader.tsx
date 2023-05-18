@@ -58,7 +58,7 @@ const DarkSwitch = ({ isDark }: { isDark: boolean | Ref<boolean> }) => {
   );
 };
 
-const HeaderLink = (
+function HeaderLink(
   {
     isDark,
     href,
@@ -70,7 +70,7 @@ const HeaderLink = (
   },
   state: any,
   children: any[]
-) => {
+) {
   return () => (
     <HeaderBtn
       isDark={isDark}
@@ -87,7 +87,7 @@ const HeaderLink = (
       </a>
     </HeaderBtn>
   );
-};
+}
 
 export const AppHeader = ({ isDark }: { isDark: boolean | Ref<boolean> }) => {
   return () => (
