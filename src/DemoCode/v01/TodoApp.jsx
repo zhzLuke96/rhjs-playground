@@ -1,12 +1,12 @@
 import {
   rh,
-  unref,
   ref,
   mount,
-  setupEffect,
   onUnmount,
   useRef,
   Style,
+  ReactiveList,
+  setupWatch,
 } from "@rhjs/rh";
 
 const TodoHeader = ({ onAddTask }) => {
@@ -72,55 +72,68 @@ const TimeSince = ({ date }) => {
 const TodoList = ({ tasks, onRemoveTask }) => {
   return () => (
     <ul>
-      <Style styleFn={() => ({
-        "button[disabled]": {
-          opacity: 0.5,
-          cursor: "not-allowed",
-        }
-      })} />
-      {unref(tasks).map((task, index, array) => (
-        <li key={index}>
-          {task.done ? <del>{task.name}</del> : task.name}
-          {"  "}
-          {task.done ? null : <TimeSince date={task.date} />}
-          <br />
-          <button
-            disabled={index === 0}
-            onClick={() => {
-              [tasks.value[index - 1], tasks.value[index]] = [
-                array[index],
-                array[index - 1],
-              ];
-            }}
-          >
-            👆
-          </button>
-          <button
-            disabled={index === array.length - 1}
-            onClick={() => {
-              [tasks.value[index + 1], tasks.value[index]] = [
-                array[index],
-                array[index + 1],
-              ];
-            }}
-          >
-            👇
-          </button>
-          <button onClick={() => onRemoveTask(index)}>remove</button>
-          {task.done ? (
+      <Style
+        styleFn={() => ({
+          "button[disabled]": {
+            opacity: 0.5,
+            cursor: "not-allowed",
+          },
+        })}
+      />
+      <ReactiveList
+        items={tasks}
+        render={(task, index, array, rerender) => (
+          <li>
+            {task.done ? <del>{task.name}</del> : task.name}
+            <br />
+            <small>⏰{task.done ? null : <TimeSince date={task.date} />}</small>
+            <br />
             <button
+              disabled={index === 0}
               onClick={() => {
-                task.done = false;
-                task.date = new Date();
+                [tasks.value[index - 1], tasks.value[index]] = [
+                  array[index],
+                  array[index - 1],
+                ];
               }}
             >
-              reset
+              👆
             </button>
-          ) : (
-            <button onClick={() => (task.done = true)}>done</button>
-          )}
-        </li>
-      ))}
+            <button
+              disabled={index === array.length - 1}
+              onClick={() => {
+                [tasks.value[index + 1], tasks.value[index]] = [
+                  array[index],
+                  array[index + 1],
+                ];
+              }}
+            >
+              👇
+            </button>
+            <button onClick={() => onRemoveTask(index)}>remove</button>
+            {task.done ? (
+              <button
+                onClick={() => {
+                  task.done = false;
+                  task.date = new Date();
+                  rerender();
+                }}
+              >
+                reset
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  task.done = true;
+                  rerender();
+                }}
+              >
+                done
+              </button>
+            )}
+          </li>
+        )}
+      />
     </ul>
   );
 };
