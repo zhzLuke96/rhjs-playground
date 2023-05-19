@@ -1,4 +1,7 @@
-import { rh, ref, mount, unref, setupWatch } from "@rhjs/rh";
+import { rh, ref, mount, unref, setupWatch, inject, provide } from "@rhjs/rh";
+
+const useCurrentPage = () => provide("currentPage");
+const injectCurrentPage = (currentPage) => inject("currentPage", currentPage);
 
 const Counter = ({ prefix }) => {
   const count = ref(1);
@@ -18,18 +21,27 @@ const Counter = ({ prefix }) => {
   );
 };
 
-const Switch = ({ branches, currentBranch }) => {
+const Switch = ({ branches }) => {
+  const currentBranch = useCurrentPage();
   return () => <div>{branches[unref(currentBranch)]}</div>;
+};
+
+const Goto = ({ branch }) => {
+  const currentBranch = useCurrentPage();
+  return () => (
+    <button onClick={() => (currentBranch.value = branch)}>{branch}</button>
+  );
 };
 
 const App = () => {
   const currentBranch = ref("page1");
+  injectCurrentPage(currentBranch);
   return () => (
     <div>
       <div>
-        <button onClick={() => (currentBranch.value = "page1")}>page1</button>
-        <button onClick={() => (currentBranch.value = "page2")}>page2</button>
-        <button onClick={() => (currentBranch.value = "page3")}>page3</button>
+        <Goto branch={"page1"} />
+        <Goto branch={"page2"} />
+        <Goto branch={"page3"} />
       </div>
       <p>{currentBranch}</p>
       <Switch
@@ -38,7 +50,6 @@ const App = () => {
           page2: () => <Counter key={"page2"} prefix={"🐹"} />,
           page3: () => <Counter key={"page3"} prefix={"🐰"} />,
         }}
-        currentBranch={currentBranch}
       />
     </div>
   );

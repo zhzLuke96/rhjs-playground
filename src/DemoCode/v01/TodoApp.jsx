@@ -7,6 +7,7 @@ import {
   Style,
   ReactiveList,
   setupWatch,
+  onMount,
 } from "@rhjs/rh";
 
 const TodoHeader = ({ onAddTask }) => {
@@ -63,9 +64,9 @@ const TimeSince = ({ date }) => {
   };
 
   const interval = setInterval(updateTimeSince, 1000);
-  updateTimeSince();
-
   onUnmount(() => clearInterval(interval));
+  onMount(updateTimeSince);
+
   return () => <span>{timeSinceRef}</span>;
 };
 
