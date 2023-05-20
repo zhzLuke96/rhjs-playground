@@ -7,6 +7,9 @@ import {
   onUnmount,
   unref,
   Ref,
+  computed,
+  inject,
+  provide,
 } from "@rhjs/rh";
 import { throttle } from "lodash-es";
 
@@ -72,6 +75,11 @@ export const Resizer = ({
     unref(divRef)?.removeEventListener("touchstart", onResizeStart);
   });
 
+  const isDark = provide("isDark");
+  const highlight = computed(() =>
+    unref(isDark) ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.3)"
+  );
+
   return () => (
     <div
       ref={(dom: any) => {
@@ -83,7 +91,7 @@ export const Resizer = ({
     >
       <Style
         styleFn={() => ({
-          backgroundColor: unref(draggingRef) ? "rgba(255,255,255,0.3)" : "",
+          backgroundColor: unref(draggingRef) ? unref(highlight) : "",
           width: isHorizontal ? "100%" : "12px",
           height: isHorizontal ? "12px" : "100%",
           zIndex: unref(draggingRef) ? "10" : "auto",
@@ -95,7 +103,7 @@ export const Resizer = ({
           fontSize: "12px",
 
           "&:hover": {
-            backgroundColor: "rgba(255,255,255,0.3)",
+            backgroundColor: unref(highlight),
           },
         })}
       ></Style>

@@ -1,4 +1,4 @@
-import { readonly, ref, Ref, shallowRef, untrack } from "@rhjs/rh";
+import { readonly, ShallowRef, shallowRef, untrack } from "@rhjs/rh";
 
 type Action<T> = {
   type: string;
@@ -11,7 +11,7 @@ export function useReducer<S, A extends Action<any>>(
   reducer: Reducer<S, A>,
   initialState: S
 ) {
-  const state = shallowRef(initialState) as Ref<S>;
+  const state = shallowRef(initialState) as ShallowRef<S>;
   const dispatch = (action: A) => {
     state.value = reducer(untrack(state), action);
   };

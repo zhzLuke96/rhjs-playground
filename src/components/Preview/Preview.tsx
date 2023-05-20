@@ -1,4 +1,5 @@
 import { rh, unref, computed, builtin, ref, unrefAll } from "@rhjs/rh";
+import { HeaderBtn } from "../Layout/HeaderBtn";
 import { Resizer } from "./Resizer";
 import { PreviewProps } from "./types";
 import { createDevtoolsSrc } from "./useDevtoolsSrc";
@@ -54,8 +55,8 @@ export const Preview = (previewProps: PreviewProps) => {
         styleFn={() => {
           const ihPer = unref(iframeHeight);
           const rows = unref(devtoolsEnable)
-            ? `minmax(0, ${ihPer}fr) 12px minmax(0, ${1 - ihPer}fr)`
-            : "minmax(0, 1fr)";
+            ? `30px minmax(0, ${ihPer}fr) 12px minmax(0, ${1 - ihPer}fr)`
+            : "30px minmax(0, 1fr)";
           return {
             display: "grid",
             height: "100%",
@@ -64,6 +65,16 @@ export const Preview = (previewProps: PreviewProps) => {
           };
         }}
       ></builtin.Style>
+      <div style="border-bottom: 1px solid;border-top: 1px solid;overflow: hidden;">
+        <HeaderBtn
+          title={"reload page"}
+          isDark={isDark}
+          onClick={() => dispatch({ type: "HTML_RELOAD" })}
+        >
+          ♻️relaod
+        </HeaderBtn>
+      </div>
+
       <iframe
         ref={iframeRef}
         src={iframeSrc}

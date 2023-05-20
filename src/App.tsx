@@ -8,6 +8,7 @@ import {
   ElementSource,
   setupWatch,
   computed,
+  inject,
 } from "@rhjs/rh";
 import { createTextUrlRef } from "./components/createTextURL";
 import { MonacoEditor } from "./components/Editor/MonacoEditor";
@@ -53,6 +54,8 @@ const disposeCode = `import("@rhjs/rh").then(({cs, ElementSource}) => window.dis
 
 export const App = () => {
   const isDark = ref(true);
+  inject("isDark", isDark);
+
   const { currentDemo } = connectDemoCode();
   const importMap = computed(() => ({
     "@rhjs/rh": `https://unpkg.com/@rhjs/rh@${

@@ -28,6 +28,7 @@ type PreviewAction =
   | { type: "Debugger.enable" }
   | { type: "CODE_INJECTED" }
   | { type: "HTML_CHANGED"; iframeSrc: string }
+  | { type: "HTML_RELOAD" }
   | { type: "CODE_UPDATE"; codeURL: string };
 
 const useIframeMessageBus = (
@@ -71,7 +72,7 @@ const useIframeMessageBus = (
 
     // 在这个事件之前注入代码可能导致console.log绑定不全
     if (event.data?.includes?.("Debugger.enable")) {
-      // console.log("Debugger.enable");
+      console.log("Debugger.enable");
       dispatch({ type: "Debugger.enable" });
       injectCode();
     }
@@ -148,6 +149,12 @@ export const usePreviewState = (props: PreviewProps) => {
       iframe.src = src;
     }
   };
+  const reloadIframe = () => {
+    untrack(iframeRef)?.contentWindow?.location.reload();
+  };
+  const reloadDevtool = () => {
+    untrack(devtoolsIframeRef)?.contentWindow?.location.reload();
+  };
   setupWatch(
     () => unref(isDark),
     (dark) => {
@@ -180,10 +187,23 @@ export const usePreviewState = (props: PreviewProps) => {
           };
         case "HTML_CHANGED": {
           setupIframeSrc(action.iframeSrc);
-          if (state.devtoolsIframeReady) {
-            untrack(devtoolsIframeRef)?.contentWindow?.location.reload();
-          }
+          reloadDevtool();
           return {
+            ...state,
+            iframeReady: false,
+            devtoolsIframeReady: false,
+            devLoaded: false,
+            codeInjected: false,
+            darkInjected: false,
+          };
+        }
+        case "HTML_RELOAD": {
+          setTimeout(() => {
+            reloadIframe();
+            reloadDevtool();
+          });
+          return {
+            ...state,
             iframeReady: false,
             devtoolsIframeReady: false,
             devLoaded: false,

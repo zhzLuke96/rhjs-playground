@@ -87,7 +87,7 @@ const TodoList = ({ tasks, onRemoveTask }) => {
           <li>
             {task.done ? <del>{task.name}</del> : task.name}
             <br />
-            <small>⏰{task.done ? null : <TimeSince date={task.date} />}</small>
+            <small>⏰{task.done ? 'done' : <TimeSince date={task.date} />}</small>
             <br />
             <button
               disabled={index === 0}
@@ -120,7 +120,7 @@ const TodoList = ({ tasks, onRemoveTask }) => {
                   rerender();
                 }}
               >
-                reset
+                redo
               </button>
             ) : (
               <button
