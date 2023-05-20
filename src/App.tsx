@@ -85,7 +85,7 @@ export const App = () => {
     })) as {
       compiled: string;
     };
-    console.log(result);
+    // console.log(result);
     code.value = `${result.compiled}\n${disposeCode}`;
   };
   onMount(compileCodeCache);
@@ -97,7 +97,7 @@ export const App = () => {
     if (editorCode.value === demo.code) {
       return;
     }
-    console.log("change");
+    // console.log("change");
     editorCode.value = demo.code;
     compileCodeCache();
   });
