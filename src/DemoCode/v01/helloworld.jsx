@@ -6,7 +6,7 @@ const App = () => {
   /**
    * Update the date value every 100ms using setInterval.
    * However, the computed property `timeStr` will only be recomputed and the view updated
-   * when the `nowDate` ref value changes (is "dirty"), thanks to reactivity system.
+   * when the `timeStr` ref value changes (is "dirty"), thanks to reactivity system.
    * */
   setInterval(() => (nowDate.value = new Date()), 100);
   return () => (
