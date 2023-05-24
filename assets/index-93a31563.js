@@ -176,6 +176,7 @@ const TodoList = ({ tasks, onRemoveTask }) => {
                   array[index],
                   array[index - 1],
                 ];
+                rerender();
               }}
             >
               👆
@@ -187,6 +188,7 @@ const TodoList = ({ tasks, onRemoveTask }) => {
                   array[index],
                   array[index + 1],
                 ];
+                rerender();
               }}
             >
               👇
