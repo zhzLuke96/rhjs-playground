@@ -9,9 +9,9 @@ import v0_code_1 from "./demo1.jsx?raw";
 
 const mgr = new DemoManager();
 
-mgr.registerDemo("HelloWorld", "0.1.1", v1_code_2);
-mgr.registerDemo("Counter", "0.1.1", v1_code_1);
-mgr.registerDemo("TodoApp", "0.1.1", v1_code_todoApp);
+mgr.registerDemo("HelloWorld", "0.1.2", v1_code_2);
+mgr.registerDemo("Counter", "0.1.2", v1_code_1);
+mgr.registerDemo("TodoApp", "0.1.2", v1_code_todoApp);
 mgr.registerDemo("Counter", "0.0.34", v0_code_1);
 
 const currentDemo = ref<TDemo | null>(mgr.currentDemo);
