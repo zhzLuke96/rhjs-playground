@@ -2,7 +2,7 @@ import { ref } from "@rhjs/rh";
 import { DemoManager, TDemo } from "./DemoCodeMgr";
 
 // v2.0
-import v2_code_bitcoin from "./v02/BitCoin.tsx?raw";
+import v2_code_bitcoin from "./v02/Bitcoin.tsx?raw";
 import v2_code_marked from "./v02/Marked.tsx?raw";
 
 import v1_code_1 from "./v01/counter.jsx?raw";
