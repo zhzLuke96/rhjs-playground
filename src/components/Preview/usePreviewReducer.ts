@@ -1,16 +1,16 @@
 import {
-  computed,
-  onUnmount,
+  createMemo,
+  onUnmounted,
   Ref,
-  setupWatch,
+  createWatcher,
   shallowRef,
   unref,
   unrefAll,
   untrack,
+  createReducer,
 } from "@rhjs/rh";
 import { generateHTML } from "./generateHTML";
 import { PreviewProps } from "./types";
-import { useReducer } from "./useReducer";
 
 type PreviewState = {
   iframeReady: boolean;
@@ -86,7 +86,7 @@ const useIframeMessageBus = (
     }
   };
   window.addEventListener("message", iframeMessageBus);
-  onUnmount(() => window.removeEventListener("message", iframeMessageBus));
+  onUnmounted(() => window.removeEventListener("message", iframeMessageBus));
 
   // setupWatch(state, (st) => {
   //   const { iframeReady, devtoolsIframeReady, codeInjected } = st;
@@ -104,9 +104,9 @@ const useIframeSrc = (
 ) => {
   const { importMap, isDark } = props;
 
-  const iframeSrc = computed<string>(() => {
+  const iframeSrc = createMemo<string>(() => {
     const html = generateHTML(
-      untrack(isDark as any),
+      untrack(isDark),
       JSON.stringify({ imports: unref(importMap) })
     );
     const url = URL.createObjectURL(
@@ -116,8 +116,8 @@ const useIframeSrc = (
     );
     return url;
   });
-  setupWatch(iframeSrc, (src, prev_src) => {
-    if (prev_src) {
+  createWatcher(iframeSrc, (src, prev_src) => {
+    if (prev_src !== src && prev_src) {
       URL.revokeObjectURL(prev_src);
     }
     dispatch({
@@ -125,7 +125,9 @@ const useIframeSrc = (
       iframeSrc: src || "",
     });
   });
-  onUnmount(() => URL.revokeObjectURL(untrack(iframeSrc) || ""));
+  onUnmounted(() => {
+    URL.revokeObjectURL(untrack(iframeSrc) || "");
+  });
 
   return {
     iframeSrc,
@@ -155,7 +157,7 @@ export const usePreviewState = (props: PreviewProps) => {
   const reloadDevtool = () => {
     untrack(devtoolsIframeRef)?.contentWindow?.location.reload();
   };
-  setupWatch(
+  createWatcher(
     () => unref(isDark),
     (dark) => {
       const iframe = unref(iframeRef);
@@ -163,7 +165,7 @@ export const usePreviewState = (props: PreviewProps) => {
     }
   );
 
-  const [previewState, dispatch] = useReducer<PreviewState, PreviewAction>(
+  const [previewState, dispatch] = createReducer<PreviewState, PreviewAction>(
     (state, action) => {
       // console.log(state, action);
       switch (action.type) {
@@ -240,7 +242,7 @@ export const usePreviewState = (props: PreviewProps) => {
     dispatch
   );
 
-  setupWatch(
+  createWatcher(
     () => unref(code),
     (codeURL) => {
       dispatch({ type: "CODE_UPDATE", codeURL });
@@ -256,12 +258,12 @@ export const usePreviewState = (props: PreviewProps) => {
 
   const { iframeSrc } = useIframeSrc(props, dispatch);
 
-  setupWatch(iframeRef, (iframe) => {
+  createWatcher(iframeRef, (iframe) => {
     iframe?.addEventListener("load", () =>
       dispatch({ type: "IFRAME_READY", iframe })
     );
   });
-  setupWatch(devtoolsIframeRef, (iframe) => {
+  createWatcher(devtoolsIframeRef, (iframe) => {
     iframe?.addEventListener("load", () =>
       dispatch({ type: "DEVTOOLS_IFRAME_READY", devIframe: iframe })
     );

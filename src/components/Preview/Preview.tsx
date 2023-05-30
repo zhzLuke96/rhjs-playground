@@ -1,4 +1,4 @@
-import { rh, unref, computed, builtin, ref, unrefAll } from "@rhjs/rh";
+import { rh, unref, createMemo, ref, unrefAll, Style } from "@rhjs/rh";
 import { HeaderBtn } from "../Layout/HeaderBtn";
 import { Resizer } from "./Resizer";
 import { PreviewProps } from "./types";
@@ -21,7 +21,7 @@ export const Preview = (previewProps: PreviewProps) => {
 
   const devtools_src = createDevtoolsSrc();
 
-  const devtools_style = computed(
+  const devtools_style = createMemo(
     () =>
       `width: 100%; height: 100%; ${
         unref(devtoolsEnable) ? "display: block;" : "display: none;"
@@ -51,7 +51,7 @@ export const Preview = (previewProps: PreviewProps) => {
 
   return () => (
     <div {...props} ref={containerRef}>
-      <builtin.Style
+      <Style
         styleFn={() => {
           const ihPer = unref(iframeHeight);
           const rows = unref(devtoolsEnable)
@@ -64,7 +64,7 @@ export const Preview = (previewProps: PreviewProps) => {
             gridTemplateRows: rows,
           };
         }}
-      ></builtin.Style>
+      ></Style>
       <div style="border-bottom: 1px solid;border-top: 1px solid;overflow: hidden;">
         <HeaderBtn
           title={"reload page"}

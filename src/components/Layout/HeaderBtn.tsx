@@ -1,4 +1,4 @@
-import { builtin, Ref, rh, untrack, unref, isRef, onMount } from "@rhjs/rh";
+import { Style, Ref, rh, unref } from "@rhjs/rh";
 
 export const HeaderBtn = (
   {
@@ -14,7 +14,7 @@ export const HeaderBtn = (
 ) => {
   return () => (
     <div {...props}>
-      <builtin.Style
+      <Style
         styleFn={() => ({
           height: "30px",
           display: "inline-flex",

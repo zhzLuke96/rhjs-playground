@@ -1,4 +1,4 @@
-import { builtin, Ref, rh, untrack, unref, isRef, onMount } from "@rhjs/rh";
+import { Style, Ref, rh, untrack, unref, isRef } from "@rhjs/rh";
 import { DemoSelector } from "./DemoSelector";
 import { HeaderBtn } from "./HeaderBtn";
 
@@ -52,7 +52,7 @@ function HeaderLink(
 export const AppHeader = ({ isDark }: { isDark: boolean | Ref<boolean> }) => {
   return () => (
     <div>
-      <builtin.Style
+      <Style
         styleFn={() => ({
           paddingLeft: "12px",
           paddingRight: "12px",

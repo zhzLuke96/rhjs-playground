@@ -1,10 +1,10 @@
 import {
   isRef,
-  onUnmount,
+  onUnmounted,
   Ref,
   rh,
-  setupEffect,
-  setupWatch,
+  createEffect,
+  createWatcher,
   unref,
   untrack,
 } from "@rhjs/rh";
@@ -48,7 +48,7 @@ export const MonacoEditor = ({
 }: MonacoEditorProps) => {
   let editor: any, model: any, monaco: any;
 
-  setupEffect(() => {
+  createEffect(() => {
     const is_dark = unref(isDark);
     if (monaco?.editor) {
       if (is_dark) {
@@ -59,12 +59,12 @@ export const MonacoEditor = ({
     }
   });
 
-  onUnmount(() => {
+  onUnmounted(() => {
     editor?.dispose();
   });
 
   if (isRef(value)) {
-    setupWatch(value, (code) => {
+    createWatcher(value, (code) => {
       if (model?.getValue() === code) {
         return;
       }
@@ -79,7 +79,7 @@ export const MonacoEditor = ({
         monaco = await loadMonaco();
 
         model = monaco.editor.createModel(
-          untrack(value),
+          untrack(value as any),
           "typescript",
           monaco.Uri.file("main.ts")
         );

@@ -1,10 +1,10 @@
-import { builtin, Ref, rh, unref } from "@rhjs/rh";
+import { GlobalStyle, Ref, rh, unref } from "@rhjs/rh";
 
 export const AppGlobalStyle =
   ({ isDark }: { isDark: boolean | Ref<boolean> }) =>
   () =>
     (
-      <builtin.GlobalStyle
+      <GlobalStyle
         styleFn={() => ({
           fontFamily: `'Karla', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'`,
           lineHeight: "1.5",
@@ -36,5 +36,5 @@ export const AppGlobalStyle =
             height: "100%",
           },
         })}
-      ></builtin.GlobalStyle>
+      ></GlobalStyle>
     );

@@ -1,19 +1,16 @@
 import {
   ref,
   rh,
-  useRef,
-  builtin,
-  setupWatch,
-  onUnmount,
+  createState,
+  Style,
+  createWatcher,
+  onUnmounted,
   unref,
   Ref,
   computed,
   inject,
-  provide,
 } from "@rhjs/rh";
 import { throttle } from "lodash-es";
-
-const { Style } = builtin;
 
 const silentAllIframe = () =>
   document
@@ -33,7 +30,7 @@ export const Resizer = ({
   onResize: (clientX: number, clientY: number) => any;
   ref?: Ref<any>;
 }) => {
-  const [dragging, setDragging, draggingRef] = useRef<boolean>(false);
+  const [draggingRef, setDragging] = createState<boolean>(false);
 
   const onResizeStart = () => setDragging(true);
   const onResizeEnd = () => setDragging(false);
@@ -49,7 +46,7 @@ export const Resizer = ({
 
   const divRef = ref<null | HTMLElement>(null);
 
-  setupWatch(draggingRef, (draggingValue) => {
+  createWatcher(draggingRef, (draggingValue) => {
     if (draggingValue) {
       silentAllIframe();
       window.addEventListener("mousemove", onMouseMove);
@@ -64,18 +61,18 @@ export const Resizer = ({
       window.removeEventListener("touchend", onResizeEnd);
     }
   });
-  setupWatch(divRef, (divDom) => {
+  createWatcher(divRef, (divDom) => {
     if (divDom) {
       divDom.addEventListener("mousedown", onResizeStart, { passive: true });
       divDom.addEventListener("touchstart", onResizeStart, { passive: true });
     }
   });
-  onUnmount(() => {
+  onUnmounted(() => {
     unref(divRef)?.removeEventListener("mousedown", onResizeStart);
     unref(divRef)?.removeEventListener("touchstart", onResizeStart);
   });
 
-  const isDark = provide("isDark");
+  const isDark = inject("isDark");
   const highlight = computed(() =>
     unref(isDark) ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.3)"
   );

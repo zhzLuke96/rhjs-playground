@@ -1,4 +1,4 @@
-import { setupEffect, Ref, ref, untrack, unref, onUnmount } from "@rhjs/rh";
+import { createEffect, Ref, ref, untrack, unref, onUnmounted } from "@rhjs/rh";
 
 /**
  * create text/plain content Ref<string>
@@ -10,7 +10,7 @@ export const createTextUrlRef = (
   options?: BlobPropertyBag | undefined
 ) => {
   const urlRef = ref("");
-  setupEffect(() => {
+  createEffect(() => {
     const prev_url = untrack(urlRef);
     if (prev_url) {
       URL.revokeObjectURL(prev_url);
@@ -19,6 +19,6 @@ export const createTextUrlRef = (
       new Blob([unref(text)], { type: "text/plain", ...options })
     );
   });
-  onUnmount(() => URL.revokeObjectURL(urlRef.value));
+  onUnmounted(() => URL.revokeObjectURL(urlRef.value));
   return urlRef;
 };
