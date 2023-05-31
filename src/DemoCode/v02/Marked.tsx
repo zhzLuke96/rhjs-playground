@@ -22,9 +22,13 @@ import { marked } from "https://cdn.jsdelivr.net/npm/marked@5.0.3/lib/marked.esm
 enableDirective({
   key: "$innerHTML",
   mounted: (elem, value) => {
-    createEffect(() => {
+    if (!(elem instanceof HTMLElement)) {
+      return;
+    }
+    const { cleanup } = createEffect(() => {
       elem.innerHTML = unref(value);
     });
+    return cleanup;
   },
 });
 

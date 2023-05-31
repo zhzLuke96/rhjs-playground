@@ -1,4 +1,9 @@
-import { rh, ref, mount, unref, computed } from "@rhjs/rh";
+import { rh, ref, mount, unref, computed, onUnmounted } from "@rhjs/rh";
+
+const createInterval = (cb, ms) => {
+  const timer = setInterval(cb, ms);
+  onUnmounted(() => clearInterval(timer));
+};
 
 const App = () => {
   const nowDate = ref(new Date());
@@ -8,7 +13,8 @@ const App = () => {
    * However, the computed property `timeStr` will only be recomputed and the view updated
    * when the `timeStr` ref value changes (is "dirty"), thanks to reactivity system.
    * */
-  setInterval(() => (nowDate.value = new Date()), 100);
+  createInterval(() => (nowDate.value = new Date()), 100);
+
   return () => (
     <div>
       <h1>Hello, world!</h1>
