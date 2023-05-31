@@ -494,11 +494,11 @@ const App = () => {
 };
 
 mount("#app", App);
-`,En=`import { rh, ref, mount, unref, computed, onUnmounted } from "@rhjs/rh";
+`,En=`import { rh, ref, mount, unref, computed, onUnmount } from "@rhjs/rh";
 
 const createInterval = (cb, ms) => {
   const timer = setInterval(cb, ms);
-  onUnmounted(() => clearInterval(timer));
+  onUnmount(() => clearInterval(timer));
 };
 
 const App = () => {
