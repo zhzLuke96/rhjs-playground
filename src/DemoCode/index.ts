@@ -17,10 +17,10 @@ const mgr = new DemoManager();
 mgr.registerDemo("HelloWorld", "0.1.2", v1_code_2);
 mgr.registerDemo("Counter", "0.1.2", v1_code_1);
 mgr.registerDemo("TodoApp", "0.1.2", v1_code_todoApp);
-mgr.registerDemo("Bitcoin", "0.2.1-dev.6", v2_code_bitcoin);
+mgr.registerDemo("Bitcoin", "0.2.1-dev.8", v2_code_bitcoin);
 
-mgr.registerDemo("Markdown Editor", "0.2.1-dev.6", v2_code_marked);
-mgr.registerDemo("HTML tag", "0.2.1-dev.6", v2_code_html_tag);
+mgr.registerDemo("Markdown Editor", "0.2.1-dev.8", v2_code_marked);
+mgr.registerDemo("HTML tag", "0.2.1-dev.8", v2_code_html_tag);
 
 mgr.registerDemo("Counter", "0.0.34", v0_code_1);
 
