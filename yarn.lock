@@ -373,10 +373,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@rhjs/rh@^0.2.1-dev.8":
-  version "0.2.1-dev.8"
-  resolved "https://registry.yarnpkg.com/@rhjs/rh/-/rh-0.2.1-dev.8.tgz#5d920cb192aea7f5e43ec2b5e77b2b1bfb5996a2"
-  integrity sha512-qJob7mf0dgpjDmEVvbn8QEw30+nxwarxQamev7suRct5Uzu9SCskUjTQfcqj5CmeJa9hOErjHsCkS6PQAiS7eg==
+"@rhjs/rh@^0.2.1-dev.11":
+  version "0.2.1-dev.11"
+  resolved "https://registry.yarnpkg.com/@rhjs/rh/-/rh-0.2.1-dev.11.tgz#f225b230cea3302c64a62f6d2285a42ce6ed30d7"
+  integrity sha512-B5W/N4IKfStgcfx1kBeRu2+XOGzZ4APyisTmW7aZhJNytWiGZtzzI+6a+5ZIq9GE4QPXogpSgiqx8a1PpiXrBQ==
 
 "@types/babel__standalone@^7.1.4":
   version "7.1.4"

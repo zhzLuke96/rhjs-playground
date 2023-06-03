@@ -46,11 +46,10 @@ export const App = () => {
 
   const { currentDemo } = connectDemoCode();
   const importMap = createMemo(() => ({
-    "@rhjs/rh": `https://unpkg.com/@rhjs/rh@${
-      currentDemo.value?.version || "latest"
-    }/dist/main.module.mjs`,
+    "@rhjs/rh": `https://unpkg.com/@rhjs/rh@latest/dist/main.module.mjs`,
     "@rhjs/fluent-web-components":
       "https://unpkg.com/@rhjs/fluent-web-components@latest/dist/main.module.mjs",
+    ...currentDemo.value?.importMap,
     // type check error
   })) as any;
 

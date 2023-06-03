@@ -1,8 +1,9 @@
 export type TDemo = {
   id: number;
   name: string;
-  version: string;
   code: string;
+
+  importMap?: any;
 };
 
 export class DemoManager {
@@ -11,12 +12,10 @@ export class DemoManager {
   demos = [] as TDemo[];
   currentDemo: TDemo | null = null;
 
-  public registerDemo(name: string, version: string, code: string) {
+  public registerDemo(demoCfg: Omit<TDemo, "id">) {
     const demo = {
       id: this.idx++,
-      name,
-      version,
-      code,
+      ...demoCfg,
     };
 
     this.demos.push(demo);
