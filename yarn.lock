@@ -373,10 +373,17 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@rhjs/rh@^0.2.1-dev.11":
-  version "0.2.1-dev.11"
-  resolved "https://registry.yarnpkg.com/@rhjs/rh/-/rh-0.2.1-dev.11.tgz#f225b230cea3302c64a62f6d2285a42ce6ed30d7"
-  integrity sha512-B5W/N4IKfStgcfx1kBeRu2+XOGzZ4APyisTmW7aZhJNytWiGZtzzI+6a+5ZIq9GE4QPXogpSgiqx8a1PpiXrBQ==
+"@rhjs/builtin@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@rhjs/builtin/-/builtin-0.1.2.tgz#56e68557066a670e62bd6fbe2d9ac0b421a8f49f"
+  integrity sha512-AxAWM9/m2PEfGxJC+Le2ZzrM3rSikMoRycYw/QxhQ6VONtjYo/TYON/Ieix++7LOceIwMdlxLhXgk3KtoKw0Bg==
+  dependencies:
+    "@rhjs/core" "^0.2.1"
+
+"@rhjs/core@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@rhjs/core/-/core-0.2.1.tgz#bfa2e8b547893a2be409574b7a79d09692071be4"
+  integrity sha512-gY+CNp/ed3YU9aTZPDFx+LSlagMd8XUjEZ1JNQvr0UMERVihjwwdRcLFDbhj9glNI9/vvVsuTxksesBiYw51RQ==
 
 "@types/babel__standalone@^7.1.4":
   version "7.1.4"

@@ -1,4 +1,11 @@
-import { createEffect, Ref, ref, untrack, unref, onUnmounted } from "@rhjs/rh";
+import {
+  createEffect,
+  Ref,
+  ref,
+  untrack,
+  unref,
+  onUnmounted,
+} from "@rhjs/core";
 
 /**
  * create text/plain content Ref<string>

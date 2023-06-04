@@ -17,5 +17,5 @@
     "jsxFactory": "rh",
     "jsxFragmentFactory": "Fragment"
   },
-  "include": ["src", "node_modules/@rhjs/rh/types/jsx.d.ts"]
+  "include": ["src", "node_modules/@rhjs/core/types/jsx.d.ts"]
 }

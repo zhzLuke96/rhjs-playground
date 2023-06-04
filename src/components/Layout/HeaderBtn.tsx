@@ -1,4 +1,5 @@
-import { Style, Ref, rh, unref } from "@rhjs/rh";
+import { Style } from "@rhjs/builtin";
+import { Ref, rh, unref } from "@rhjs/core";
 
 export const HeaderBtn = (
   {

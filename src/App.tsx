@@ -7,8 +7,7 @@ import {
   createWatcher,
   createMemo,
   provide,
-  Style,
-} from "@rhjs/rh";
+} from "@rhjs/core";
 import { createTextUrlRef } from "./components/createTextURL";
 import { MonacoEditor } from "./components/Editor/MonacoEditor";
 import { AppHeader } from "./components/Layout/AppHeader";
@@ -18,6 +17,7 @@ import { AppGlobalStyle } from "./globalStyle";
 import { app_runtime } from "./runtime";
 import { SourceFile } from "./runtime/types";
 import { connectDemoCode } from "./DemoCode";
+import { Style } from "@rhjs/builtin";
 
 const connectCompiler = () => {
   let current_processor: ReturnType<

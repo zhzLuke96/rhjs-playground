@@ -5,11 +5,11 @@ import {
   createResource,
   onMounted,
   createState,
-  GlobalStyle,
   onUnmounted,
   createWatcher,
   createMemo,
-} from "@rhjs/rh";
+} from "@rhjs/core";
+import { GlobalStyle } from "@rhjs/builtin";
 
 const timeIntervals = {
   day: 86400,

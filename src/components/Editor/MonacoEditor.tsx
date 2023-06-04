@@ -7,7 +7,7 @@ import {
   createWatcher,
   unref,
   untrack,
-} from "@rhjs/rh";
+} from "@rhjs/core";
 
 type MonacoEditorProps = {
   value: string | Ref<string>;

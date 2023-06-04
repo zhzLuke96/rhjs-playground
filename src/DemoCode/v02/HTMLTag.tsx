@@ -1,4 +1,6 @@
-import { mount, createState, html, css } from "@rhjs/rh";
+import { mount, createState } from "@rhjs/core";
+// @ts-ignore
+import { html, css } from "@rhjs/tag";
 
 const AppStyle = () => {
   return () => css`

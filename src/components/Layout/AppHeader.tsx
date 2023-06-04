@@ -1,4 +1,5 @@
-import { Style, Ref, rh, untrack, unref, isRef } from "@rhjs/rh";
+import { Ref, rh, untrack, unref, isRef } from "@rhjs/core";
+import { Style } from "@rhjs/builtin";
 import { DemoSelector } from "./DemoSelector";
 import { HeaderBtn } from "./HeaderBtn";
 

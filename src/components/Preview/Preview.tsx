@@ -1,4 +1,5 @@
-import { rh, unref, createMemo, ref, unrefAll, Style } from "@rhjs/rh";
+import { Style } from "@rhjs/builtin";
+import { rh, unref, createMemo, ref, unrefAll } from "@rhjs/core";
 import { HeaderBtn } from "../Layout/HeaderBtn";
 import { Resizer } from "./Resizer";
 import { PreviewProps } from "./types";

@@ -2,19 +2,13 @@ import {
   rh,
   mount,
   unref,
-  createResource,
-  onMounted,
   createState,
-  GlobalStyle,
-  Style,
-  onUnmounted,
-  createWatcher,
-  createMemo,
   enableDirective,
   createEffect,
   ref,
   untrack,
-} from "@rhjs/rh";
+} from "@rhjs/core";
+import { GlobalStyle, Style } from "@rhjs/builtin";
 
 // @ts-ignore
 import { marked } from "https://cdn.jsdelivr.net/npm/marked@5.0.3/lib/marked.esm.js";

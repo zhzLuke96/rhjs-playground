@@ -1,5 +1,7 @@
 import "https://cdn.skypack.dev/twind/shim";
-import { mount, createState, html, css, unref } from "@rhjs/rh";
+import { mount, createState, unref } from "@rhjs/core";
+// @ts-ignore
+import { html } from "@rhjs/tag";
 
 const CookieBanner = () => {
   const [show, setShow] = createState(true);

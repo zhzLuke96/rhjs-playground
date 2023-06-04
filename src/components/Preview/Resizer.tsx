@@ -1,16 +1,15 @@
+import { Style } from "@rhjs/builtin";
 import {
   ref,
   rh,
   createState,
-  Style,
   createWatcher,
   onUnmounted,
   unref,
   Ref,
   computed,
   inject,
-} from "@rhjs/rh";
-import { throttle } from "lodash-es";
+} from "@rhjs/core";
 
 const silentAllIframe = () =>
   document

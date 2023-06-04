@@ -1,4 +1,4 @@
-import { ref } from "@rhjs/rh";
+import { ref } from "@rhjs/core";
 import { DemoManager, TDemo } from "./DemoCodeMgr";
 
 // v2.0
@@ -44,32 +44,41 @@ mgr.registerDemo({
 });
 
 // v2 demo
+const v2importmap = (
+  coreVersion = "latest",
+  builtinVersion = "latest",
+  tagVersion = "latest"
+) => ({
+  "@rhjs/core": `https://unpkg.com/@rhjs/core@${coreVersion}/dist/main.module.mjs`,
+  "@rhjs/builtin": `https://unpkg.com/@rhjs/builtin@${builtinVersion}/dist/main.module.mjs`,
+  "@rhjs/tag": `https://unpkg.com/@rhjs/tag@${tagVersion}/dist/main.module.mjs`,
+});
 mgr.registerDemo({
   name: "Bitcoin",
   code: v2_code_bitcoin,
   importMap: {
-    ...rhjsImportMap("0.2.1-dev.11"),
+    ...v2importmap("0.2.2", "0.1.2", "0.1.3"),
   },
 });
 mgr.registerDemo({
   name: "Markdown Editor",
   code: v2_code_marked,
   importMap: {
-    ...rhjsImportMap("0.2.1-dev.11"),
+    ...v2importmap("0.2.2", "0.1.2", "0.1.3"),
   },
 });
 mgr.registerDemo({
   name: "HTML tag",
   code: v2_code_html_tag,
   importMap: {
-    ...rhjsImportMap("0.2.1-dev.11"),
+    ...v2importmap("0.2.2", "0.1.2", "0.1.3"),
   },
 });
 mgr.registerDemo({
   name: "twind",
   code: v2_code_twind,
   importMap: {
-    ...rhjsImportMap("0.2.1-dev.11"),
+    ...v2importmap("0.2.2", "0.1.2", "0.1.3"),
   },
 });
 mgr.registerDemo({
@@ -78,7 +87,7 @@ mgr.registerDemo({
   importMap: {
     "@rhjs/atomic-css":
       "https://unpkg.com/@rhjs/atomic-css@latest/dist/main.module.mjs",
-    ...rhjsImportMap("0.2.1-dev.11"),
+    ...v2importmap("0.2.2", "0.1.2", "0.1.3"),
   },
 });
 

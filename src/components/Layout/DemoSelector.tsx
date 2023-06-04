@@ -1,11 +1,11 @@
-import { rh } from "@rhjs/rh";
+import { rh } from "@rhjs/core";
 import { connectDemoCode } from "../../DemoCode";
 import { TDemo } from "../../DemoCode/DemoCodeMgr";
 
 const getDemoVersion = (demo: TDemo) => {
-  const url = demo.importMap?.["@rhjs/rh"];
+  const url = demo.importMap?.["@rhjs/rh"] || demo.importMap?.["@rhjs/core"];
   if (url) {
-    const [, v] = /@rhjs\/rh@(.+?)\//.exec(url) || [];
+    const [, , v] = /@rhjs\/(rh|core)@(.+?)\//.exec(url) || [];
     if (v) {
       return v;
     }

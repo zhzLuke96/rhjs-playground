@@ -1,4 +1,7 @@
-import { rh, mount, html, Scope } from "@rhjs/rh";
+import { rh, mount } from "@rhjs/core";
+import { Scope } from "@rhjs/builtin";
+// @ts-ignore
+import { html } from "@rhjs/tag";
 // @ts-ignore
 import { enable, atomicDirective } from "@rhjs/atomic-css";
 

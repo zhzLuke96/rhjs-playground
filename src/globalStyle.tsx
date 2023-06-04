@@ -1,4 +1,5 @@
-import { GlobalStyle, Ref, rh, unref } from "@rhjs/rh";
+import { GlobalStyle } from "@rhjs/builtin";
+import { Ref, rh, unref } from "@rhjs/core";
 
 export const AppGlobalStyle =
   ({ isDark }: { isDark: boolean | Ref<boolean> }) =>

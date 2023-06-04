@@ -8,7 +8,7 @@ import {
   unrefAll,
   untrack,
   createReducer,
-} from "@rhjs/rh";
+} from "@rhjs/core";
 import { generateHTML } from "./generateHTML";
 import { PreviewProps } from "./types";
 
