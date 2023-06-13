@@ -2,6 +2,7 @@ import { ref } from "@rhjs/core";
 import { DemoManager, TDemo } from "./DemoCodeMgr";
 
 // v2.0
+import v2_code_helloworld from "./v02/helloworld.tsx?raw";
 import v2_code_bitcoin from "./v02/Bitcoin.tsx?raw";
 import v2_code_marked from "./v02/Marked.tsx?raw";
 import v2_code_html_tag from "./v02/HTMLTag.tsx?raw";
@@ -20,29 +21,6 @@ const rhjsImportMap = (v: string) => ({
   "@rhjs/rh": `https://unpkg.com/@rhjs/rh@${v}/dist/main.module.mjs`,
 });
 
-// v1 demo
-mgr.registerDemo({
-  name: "HelloWorld",
-  code: v1_code_2,
-  importMap: {
-    ...rhjsImportMap("0.1.2"),
-  },
-});
-mgr.registerDemo({
-  name: "Counter",
-  code: v1_code_1,
-  importMap: {
-    ...rhjsImportMap("0.1.2"),
-  },
-});
-mgr.registerDemo({
-  name: "TodoApp",
-  code: v1_code_todoApp,
-  importMap: {
-    ...rhjsImportMap("0.1.2"),
-  },
-});
-
 // v2 demo
 const v2importmap = (
   coreVersion = "latest",
@@ -52,6 +30,13 @@ const v2importmap = (
   "@rhjs/core": `https://unpkg.com/@rhjs/core@${coreVersion}/dist/main.module.mjs`,
   "@rhjs/builtin": `https://unpkg.com/@rhjs/builtin@${builtinVersion}/dist/main.module.mjs`,
   "@rhjs/tag": `https://unpkg.com/@rhjs/tag@${tagVersion}/dist/main.module.mjs`,
+});
+mgr.registerDemo({
+  name: "Hello World",
+  code: v2_code_helloworld,
+  importMap: {
+    ...v2importmap("0.2.2", "0.1.2", "0.1.3"),
+  },
 });
 mgr.registerDemo({
   name: "Bitcoin",
@@ -88,6 +73,29 @@ mgr.registerDemo({
     "@rhjs/atomic-css":
       "https://unpkg.com/@rhjs/atomic-css@latest/dist/main.module.mjs",
     ...v2importmap("0.2.2", "0.1.2", "0.1.3"),
+  },
+});
+
+// v1 demo
+mgr.registerDemo({
+  name: "HelloWorld",
+  code: v1_code_2,
+  importMap: {
+    ...rhjsImportMap("0.1.2"),
+  },
+});
+mgr.registerDemo({
+  name: "Counter",
+  code: v1_code_1,
+  importMap: {
+    ...rhjsImportMap("0.1.2"),
+  },
+});
+mgr.registerDemo({
+  name: "TodoApp",
+  code: v1_code_todoApp,
+  importMap: {
+    ...rhjsImportMap("0.1.2"),
   },
 });
 
