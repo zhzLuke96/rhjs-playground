@@ -77,13 +77,14 @@ export const AppHeader = ({ isDark }: { isDark: boolean | Ref<boolean> }) => {
       </div>
       <div></div>
       <div style="display: inline-flex; align-items: center; justify-content: right;">
-        <HeaderLink
+        {/* NOTE: 暂时不显示这个链接了...因为其实现在的demo都在playground里 */}
+        {/* <HeaderLink
           isDark={isDark}
           href="https://zhzluke96.github.io/rhjs-demos/#demo"
           target="_self"
         >
           demos
-        </HeaderLink>
+        </HeaderLink> */}
         <HeaderLink isDark={isDark} href="https://github.com/zhzLuke96/rh.js">
           github
         </HeaderLink>
