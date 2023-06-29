@@ -380,10 +380,10 @@
   dependencies:
     "@rhjs/core" "^0.2.2"
 
-"@rhjs/core@^0.2.2", "@rhjs/core@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@rhjs/core/-/core-0.2.3.tgz#c5761e8d3e048265de2a571b0f36d5a81cdb62b9"
-  integrity sha512-8zEYDTceJpP2iD+ZSW+8EAzJnNIEbNd+aRz0wLVsY4M6Q/RU2zFtIZkUQbJ6A7aCIHXdpGi91IrbZs+VAXRGdw==
+"@rhjs/core@^0.2.2", "@rhjs/core@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@rhjs/core/-/core-0.2.5.tgz#0250df80efed78e779860d9ce5910e90ca60896a"
+  integrity sha512-z3HEpgiYTgcVnZJV99G79gkqvauPm7ws8TxUrpKWQka6Iz6BQl6axxZhYY/KxHuB9TDObsf5bsVgEGP2XX/NeA==
 
 "@types/babel__standalone@^7.1.4":
   version "7.1.4"

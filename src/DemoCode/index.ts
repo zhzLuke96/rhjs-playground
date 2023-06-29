@@ -35,35 +35,35 @@ mgr.registerDemo({
   name: "Hello World",
   code: v2_code_helloworld,
   importMap: {
-    ...v2importmap("0.2.3", "0.1.3", "0.1.6"),
+    ...v2importmap("0.2.5", "0.1.3", "0.1.6"),
   },
 });
 mgr.registerDemo({
   name: "Bitcoin",
   code: v2_code_bitcoin,
   importMap: {
-    ...v2importmap("0.2.3", "0.1.3", "0.1.6"),
+    ...v2importmap("0.2.5", "0.1.3", "0.1.6"),
   },
 });
 mgr.registerDemo({
   name: "Markdown Editor",
   code: v2_code_marked,
   importMap: {
-    ...v2importmap("0.2.3", "0.1.3", "0.1.6"),
+    ...v2importmap("0.2.5", "0.1.3", "0.1.6"),
   },
 });
 mgr.registerDemo({
   name: "HTML tag",
   code: v2_code_html_tag,
   importMap: {
-    ...v2importmap("0.2.3", "0.1.3", "0.1.6"),
+    ...v2importmap("0.2.5", "0.1.3", "0.1.6"),
   },
 });
 mgr.registerDemo({
   name: "twind",
   code: v2_code_twind,
   importMap: {
-    ...v2importmap("0.2.3", "0.1.3", "0.1.6"),
+    ...v2importmap("0.2.5", "0.1.3", "0.1.6"),
   },
 });
 mgr.registerDemo({
@@ -72,7 +72,7 @@ mgr.registerDemo({
   importMap: {
     "@rhjs/atomic-css":
       "https://unpkg.com/@rhjs/atomic-css@latest/dist/main.module.mjs",
-    ...v2importmap("0.2.3", "0.1.3", "0.1.6"),
+    ...v2importmap("0.2.5", "0.1.3", "0.1.6"),
   },
 });
 
