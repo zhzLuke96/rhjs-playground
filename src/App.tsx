@@ -1,13 +1,11 @@
+import { rh, ref, untrack } from "@rhjs/core";
 import {
-  rh,
-  ref,
-  untrack,
   onUnmounted,
   onMounted,
   createWatcher,
   createMemo,
   provide,
-} from "@rhjs/core";
+} from "@rhjs/hooks";
 import { createTextUrlRef } from "./components/createTextURL";
 import { MonacoEditor } from "./components/Editor/MonacoEditor";
 import { AppHeader } from "./components/Layout/AppHeader";

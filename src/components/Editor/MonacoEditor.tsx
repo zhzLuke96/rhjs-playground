@@ -1,13 +1,5 @@
-import {
-  isRef,
-  onUnmounted,
-  Ref,
-  rh,
-  createEffect,
-  createWatcher,
-  unref,
-  untrack,
-} from "@rhjs/core";
+import { isRef, Ref, rh, unref, untrack } from "@rhjs/core";
+import { onUnmounted, createEffect, createWatcher } from "@rhjs/hooks";
 
 type MonacoEditorProps = {
   value: string | Ref<string>;

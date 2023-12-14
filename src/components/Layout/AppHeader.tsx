@@ -86,7 +86,7 @@ export const AppHeader = ({ isDark }: { isDark: boolean | Ref<boolean> }) => {
           demos
         </HeaderLink> */}
         <HeaderLink isDark={isDark} href="https://github.com/zhzLuke96/rh.js">
-          github
+          🐱‍👤Github
         </HeaderLink>
       </div>
     </div>

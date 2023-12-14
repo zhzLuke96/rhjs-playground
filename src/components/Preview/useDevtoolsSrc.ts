@@ -1,4 +1,4 @@
-import { onUnmounted } from "@rhjs/core";
+import { onUnmounted } from "@rhjs/hooks";
 
 export const createDevtoolsSrc = () => {
   const html = `

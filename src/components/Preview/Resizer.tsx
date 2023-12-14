@@ -1,15 +1,6 @@
 import { Style } from "@rhjs/builtin";
-import {
-  ref,
-  rh,
-  createState,
-  createWatcher,
-  onUnmounted,
-  unref,
-  Ref,
-  computed,
-  inject,
-} from "@rhjs/core";
+import { ref, rh, unref, Ref, computed } from "@rhjs/core";
+import { createState, createWatcher, onUnmounted, inject } from "@rhjs/hooks";
 
 const silentAllIframe = () =>
   document
@@ -71,7 +62,7 @@ export const Resizer = ({
     unref(divRef)?.removeEventListener("touchstart", onResizeStart);
   });
 
-  const isDark = inject("isDark");
+  const isDark = inject("isDark", undefined);
   const highlight = computed(() =>
     unref(isDark) ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.3)"
   );
