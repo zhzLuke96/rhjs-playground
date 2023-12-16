@@ -15,8 +15,8 @@ dependencies:
     specifier: ^0.3.5
     version: 0.3.5
   '@rhjs/core':
-    specifier: ^0.3.5
-    version: 0.3.5
+    specifier: ^0.3.14
+    version: 0.3.14
   '@rhjs/hooks':
     specifier: ^0.3.4
     version: 0.3.4
@@ -522,18 +522,18 @@ packages:
   /@rhjs/builtin@0.3.5:
     resolution: {integrity: sha512-Q1xAsWIa8DxkAeRY2yJ/qCNXmXTneAu1UuMuvmHuvXPmK7yj3Pg46G+TclqMVmZIHSJdOdxjcOsI/gIEr7L+0Q==}
     dependencies:
-      '@rhjs/core': 0.3.5
+      '@rhjs/core': 0.3.14
       '@rhjs/hooks': 0.3.4
     dev: false
 
-  /@rhjs/core@0.3.5:
-    resolution: {integrity: sha512-Ci3zKNwpLlFjb5LNi6tnGruf7q1fGczMr+v+F2Xo9wwR6HSPt65PCdXfqL72lt58FGSWJ3Zi3UPmR7a9kvoOSA==}
+  /@rhjs/core@0.3.14:
+    resolution: {integrity: sha512-5u/eWmbB0HgyJE0WB5/cD5zm44UNJWpELjN2AD5pbaOmyyTJzHP/tyebMRzIpBIRyLdTyaIzG+WWpLsCgq443Q==}
     dev: false
 
   /@rhjs/hooks@0.3.4:
     resolution: {integrity: sha512-xg8mhmW2B/p2pEKOSpTRftDQ2fhlIfg7koOGXJ9aLxMg2FNCWu5BZQNl8qU8rnIpGvoaKi1Uo2PMujL7Wc5s+Q==}
     dependencies:
-      '@rhjs/core': 0.3.5
+      '@rhjs/core': 0.3.14
     dev: false
 
   /@types/babel__core@7.20.5:
@@ -602,7 +602,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001570
-      electron-to-chromium: 1.4.612
+      electron-to-chromium: 1.4.614
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
     dev: false
@@ -650,8 +650,8 @@ packages:
     resolution: {integrity: sha512-Q6fKUPqnAHAyhiUgFU7BUzLiv0kd8saH9al7tnu5Q/okj6dnupxyTgFIBjVzJATdfIAm9NAsvXNzjaKa+bxVyA==}
     dev: false
 
-  /electron-to-chromium@1.4.612:
-    resolution: {integrity: sha512-dM8BMtXtlH237ecSMnYdYuCkib2QHq0kpWfUnavjdYsyr/6OsAwg5ZGUfnQ9KD1Ga4QgB2sqXlB2NT8zy2GnVg==}
+  /electron-to-chromium@1.4.614:
+    resolution: {integrity: sha512-X4ze/9Sc3QWs6h92yerwqv7aB/uU8vCjZcrMjA8N9R1pjMFRe44dLsck5FzLilOYvcXuDn93B+bpGYyufc70gQ==}
     dev: false
 
   /esbuild@0.18.20:
